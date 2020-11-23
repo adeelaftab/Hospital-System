@@ -1,0 +1,58 @@
+<div
+  class="select-box"
+  [ngStyle]="getSelectStyles()"
+  (click)="toggleState(opened)"
+>
+  <div class="placeholder" *ngIf="placeholder && (!innerValue || (multiple && !innerValue.length))">
+    {{ placeholder }}
+  </div>
+
+  <div class="value" *ngIf="selectedOptions && selectedOptions.length">
+    <span *ngIf="!multiple; else multipleValue">
+      {{ selectedOptions[0].label }}
+    </span>
+
+    <ng-template #multipleValue>
+      <div class="selected-option" *ngFor="let option of selectedOptions" (click)="removeSelectedOption($event, option)">
+        <div class="option-text">{{ option.label }}</div>
+        <i class="close-icon icofont-close-line"></i>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="icon clear" *ngIf="allowClear && innerValue" (click)="clearOptions($event)">
+    <i class="icofont-close-line"></i>
+  </div>
+
+  <div class="icon caret" [ngClass]="{ 'active': opened }"><i class="icofont-thin-down"></i></div>
+</div>
+
+<div class="select-list" [@shrink]="opened ? 'active': 'inactive'" [ngStyle]="getListStyles()" *ngIf="options">
+  <div class="not-found" *ngIf="!options">{{ notFoundMsg }}</div>
+
+  <div class="filter" *ngIf="filter">
+    <tc-input [formControl]="filterForm" [tcShape]="4"></tc-input>
+  </div>
+
+  <div class="options">
+    <ng-container *ngFor="let option of getOptions(options); let i = index">
+      <div
+        class="option"
+        [ngClass]="{ 'selected': isSelected(option.value) }"
+        [ngStyle]="getOptionStyle(isSelected(option.value))"
+        (click)="selectOption(option, isSelected(option.value))"
+        (mouseenter)="optionMouseenter($event)"
+        (mouseleave)="optionMouseleave($event, isSelected(option.value))"
+      >
+        <ng-template #defaultOption>{{ option.label }}</ng-template>
+
+        <ng-container
+          [ngTemplateOutlet]="optionTpl ? optionTpl : defaultOption"
+          [ngTemplateOutletContext]="{ option: option, index: i }"
+        ></ng-container>
+      </div>
+    </ng-container>
+
+    <div class="option" *ngIf="!getOptions(options).length">{{ notFoundMsg }}</div>
+  </div>
+</div>

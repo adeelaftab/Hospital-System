@@ -1,0 +1,11 @@
+<div class="tc-switcher-wrap" (click)="switch(value)">
+  <div class="tc-switcher-handle" [ngStyle]="getStyles()">
+    <input type="checkbox" class="switcher-input" [value]="value" [attr.checked]="value">
+
+    <span class="check-detector" [ngStyle]="getDetectorColor()"></span>
+  </div>
+
+  <div class="tc-switcher-label" [ngStyle]="getLabelColor()">
+    <ng-content></ng-content>
+  </div>
+</div>

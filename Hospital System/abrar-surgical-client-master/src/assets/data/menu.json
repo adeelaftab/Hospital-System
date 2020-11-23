@@ -1,0 +1,111 @@
+[
+  {
+    "title": "Main Menu",
+    "groupTitle": true
+  },
+  {
+    "title": "Dashboard",
+    "routing": "dashboard"
+  },
+  {
+    "title": "Patients",
+    "routing": "patient-list"
+  },
+  {
+    "title": "Outdoor Patients",
+	"sub" : [
+      {
+        "title": "Today Patients",
+        "routing": "today-outdoor-list"
+      },
+      {
+        "title": "All Patients",
+        "routing": "outdoor-list"
+      }
+      
+    ]
+  },
+    {
+    "title": "Indoor Patients",
+	"sub" : [
+      {
+        "title": "Active Patients",
+        "routing": "active-indoor-list"
+      },
+      {
+        "title": "All Patients",
+        "routing": "indoor-list"
+      }
+      
+    ]
+  },
+  {
+    "title": "Expense List",
+    "routing": "expense"
+  },
+  {
+    "title": "Reports",
+    "groupTitle": true
+  },
+  {
+    "title": "Detail Report",
+    "routing": "detail-report"
+  },
+  
+  
+  {
+    "title": "Settings",
+    "groupTitle" : true
+  },
+  {
+    "title": "Consultant",
+    "sub" : [
+      {
+        "title": "Consultant List",
+        "routing": "consultant-list"
+      },
+      {
+        "title": "Specialization",
+        "routing": "specialization"
+      }
+      
+    ]
+  },
+  {
+    "title": "Charges",
+    "sub" : [
+      {
+        "title": "Charges List",
+        "routing": "charges-list"
+      },
+	  {
+        "title": "Daily Charges",
+        "routing": "daily-charges"
+      },
+      {
+        "title": "Charges Category",
+        "routing": "charges-category"
+      }
+      
+    ]
+  },
+  {
+    "title": "Rooms",
+    "sub" : [
+      {
+        "title": "Manage Room",
+        "routing": "room"
+      },
+      {
+        "title": "Manage Room Types",
+        "routing": "room-type"
+      }
+      
+    ]
+  },
+  {
+    "title": "Expense Category",
+    "routing": "expense-category"
+  }
+  
+]

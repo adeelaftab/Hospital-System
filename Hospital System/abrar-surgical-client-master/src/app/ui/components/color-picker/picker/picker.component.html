@@ -1,0 +1,76 @@
+<div *ngIf="overlay" class="overlay"></div>
+
+<div class="picker-wrap"  [ngClass]="getAnimationClass()">
+
+	<div
+		class="animation"
+		[style.background]="savedColor"
+		[ngClass]="getAnimationClass()"
+	></div>
+
+	<div #picker class="color-picker">
+		<div class="color-values">
+			<input
+				#newColorInput
+				[ngStyle]="{'background-color': newColor , 'color' : contrastColor}"
+				type="text"
+				class="new-value"
+				[(ngModel)]="NewColor"
+				(keyup.enter)="applyColor(newColorInput.value)"
+			>
+			<div [ngStyle]="{'background-color': savedColor}" class="current-value" (click)="setColor(savedColor)"></div>
+		</div>
+		<div #colors class="colors">
+			<div #color class="color" [ngStyle]="{'background-color': selectedHue}">
+				<div [ngStyle]="getCircleStyle()" class="circle"></div>
+			</div>
+			<div class="hue">
+				<div class="range-field">
+					<div class="range-content">
+						<div #hue class="range-template">
+							<div [ngStyle]="{'top': huePosition * 100 + '%', 'border-left-color': selectedHue }" class="range-handle">
+								<div class="handle-icon"></div>
+							</div>
+							<div class="range-quantity-wrapper">
+								<div class="range-quantity"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div *ngIf="alphaChanel" class="transparency">
+			<div class="range-field">
+				<div class="range-content">
+					<div #transparency class="range-template">
+						<div [ngStyle]="{'left': transparencyPosition * 100 + '%'}" class="range-handle">
+							<div class="handle-icon"></div>
+						</div>
+						<div class="range-quantity-wrapper">
+							<div class="range-quantity"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div *ngIf="showPalette" class="palette">
+			<div
+				*ngFor="let item of palette"
+				class="palette-item"
+				(click)="setColor(item)"
+				[ngClass]="paletteItemClass(item)"
+				[ngStyle]="{ 'background': item }"
+			>
+				<div class="checkmark"></div>
+			</div>
+		</div>
+
+		<div *ngIf="buttons" class="action-buttons">
+			<button tc-button  (click)="cancel()">Cancel</button>
+			<button tc-button [view]="'success'" (click)="save()">Save</button>
+		</div>
+
+	</div>
+
+</div>

@@ -1,0 +1,45 @@
+- agm - https://angular-maps.com/
+- angular - https://angular.io/
+- ngx-leaflet - https://github.com/Asymmetrik/ngx-leaflet
+- ngrx/store - https://github.com/ngrx
+- ngx-charts - https://swimlane.github.io/ngx-charts/
+- ng-fullcalendar - https://github.com/ng-fullcalendar/ng-fullcalendar, https://fullcalendar.io/
+- chart.js - https://www.chartjs.org/
+- leaflet - https://leafletjs.com/
+- ng2-charts - https://valor-software.com/ng2-charts/
+- ng2-dragula - https://valor-software.com/ng2-dragula/
+- bootstrap - https://getbootstrap.com/
+- icofonts - https://icofont.com/
+Images
+doctor-400-1 - https://www.pexels.com/photo/care-clinic-cure-doctor-371941/
+doctor-400-2 - https://www.pexels.com/photo/portrait-of-smiling-man-325682/
+doctor-400-3 - https://www.pexels.com/photo/adult-care-cure-doctor-433635/
+doctor-400-4 - https://pixabay.com/ru/%D0%BC%D0%B5%D0%B4%D1%81%D0%B5%D1%81%D1%82%D1%80%D0%B0-%D0%BC%D0%B5%D0%B4%D0%B8%D1%86%D0%B8%D0%BD%D0%B0-%D0%B2%D1%80%D0%B0%D1%87-%D0%B1%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D1%86%D0%B0-2019420/
+doctor-400-5 - https://pixabay.com/ru/%D0%B2%D1%80%D0%B0%D1%87-%D1%81%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%BE%D0%BB%D0%BE%D0%B3-%D1%81%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5-1149149/
+doctor-400-6 - https://pixabay.com/ru/%D1%81%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%BE%D0%BB%D0%BE%D0%B3-%D0%B2%D1%80%D0%B0%D1%87-%D0%B4%D0%B0%D0%BD%D1%82%D0%B8%D1%81%D1%82-1191671/
+doctor-400-7 - https://www.pexels.com/photo/man-wearing-gray-collared-top-1323867/
+doctor-400-8 - https://www.pexels.com/photo/man-wearing-white-long-sleeved-shirt-1323864/
+doctor-400-9 - https://www.pexels.com/photo/adult-biology-chemical-chemist-356040/
+user-40-1 - https://www.pexels.com/photo/man-in-crew-neck-shirt-555790/
+user-40-2 - https://www.pexels.com/photo/adult-attractive-beautiful-beauty-415829/
+user-40-3 - https://www.pexels.com/photo/woman-wearing-black-eyeglasses-1239291/
+user-40-4 - https://www.pexels.com/photo/brown-haired-woman-wearing-brown-blazer-focus-photo-712521/
+user-40-5 - https://www.pexels.com/photo/beard-blur-casual-close-up-462680/
+user-40-6 - https://www.pexels.com/photo/brown-haired-girl-in-white-sleeveless-dress-standing-beside-black-painted-wall-756453/
+user-40-7 - https://www.pexels.com/photo/woman-in-red-tank-top-638700/
+user-40-8 - https://www.pexels.com/photo/woman-in-black-scoop-neck-shirt-smiling-38554/
+user-40-9 - https://www.pexels.com/photo/man-standing-near-building-white-black-turtleneck-shirt-874158/
+user-40-10 - https://www.pexels.com/photo/business-businessman-contemporary-corporate-532220/
+anonymous-400 - https://www.pexels.com/photo/close-up-photography-of-russian-blue-cat-66292/
+department-1 - https://www.pexels.com/photo/healthy-clinic-doctor-health-42273/
+department-2 - https://www.pexels.com/photo/view-of-clinic-305568/
+department-3 - https://www.pexels.com/photo/clinic-doctor-health-hospital-4154/
+department-4 - https://www.pexels.com/photo/three-person-looking-at-x-ray-result-1170979/
+department-5 - https://www.pexels.com/photo/adult-doctors-gloves-health-263337/
+department-6 - https://www.pexels.com/photo/adult-biology-chemical-chemist-356040/
+department-7 - https://www.pexels.com/photo/people-in-front-of-macbook-pro-1089550/
+department-8 - https://www.pexels.com/photo/medic-treating-patient-1539678/
+department-9 - https://www.pexels.com/photo/person-using-black-blood-pressure-monitor-905874/
+user-profile - https://www.pexels.com/photo/photography-of-person-wearing-hoodie-jacket-590701/
+login-page - https://www.pexels.com/photo/abstract-abstract-expressionism-abstract-painting-acrylic-1145720/
+register-page - https://www.pexels.com/photo/brown-wooden-planks-889839/

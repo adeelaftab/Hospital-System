@@ -1,0 +1,131 @@
+<form [formGroup]="myForm" id="ngForm"  (ngSubmit)="saveData(myForm.valid)" novalidate>
+
+    <div class="row">
+    
+      <div class="col-md-6">
+          <tc-form-group>
+              <tc-form-label>Patient Type</tc-form-label>
+              <tc-radio [direction]="'horizontal'" formControlName="bill_type" [value]="'outdoor'">
+                  <tc-radio-option [value]="'outdoor'">Outdoor Patient</tc-radio-option>
+                  <tc-radio-option (click)="selectIndoor()" [value]="'indoor'">Indoor Patient</tc-radio-option>
+                </tc-radio>
+          </tc-form-group>
+          <br>
+          <div formGroupName="charges">
+              <div formGroupName="consultant">
+                  <tc-form-group>
+                  <tc-form-label>Consultant</tc-form-label>
+                  <tc-select  [tcShape]="0" [size]="'sm'"   [options]="consultantData"  [placeholder]="'Select'" formControlName="consultant_id"></tc-select>
+        
+              </tc-form-group>
+                </div>
+          </div>
+         
+    
+          <table class="table table-sm table-bordered" *ngIf="charges">
+              <tbody>
+                <tr class="active" style="cursor: pointer;" *ngIf="charges[0].charges.first_time" (click)="setClickedRow('first_time',charges[0].charges.first_time,charges[0].charges.first_time_hospital_share)" [class.active]="'first_time' === selectedCharges">
+                  <th scope="row">1st Time Charges</th>
+                  <td>{{charges[0].charges.first_time}}</td>
+                  
+                </tr>
+                <tr *ngIf="charges[0].charges.normal" style="cursor: pointer;" (click)="setClickedRow('normal',charges[0].charges.normal,charges[0].charges.normal_hospital_share)" [class.active]="'normal' === selectedCharges">
+                    <th scope="row">Normal Charges</th>
+                    <td>{{charges[0].charges.normal}}</td>
+                    
+                </tr>
+                <tr *ngIf="charges[0].charges.seven_days" style="cursor: pointer;" (click)="setClickedRow('seven_days',charges[0].charges.seven_days,charges[0].charges.seven_days_hospital_share)" [class.active]="'seven_days' === selectedCharges">
+                    <th scope="row">7-Days Charges</th>
+                    <td>{{charges[0].charges.seven_days}}</td>
+                </tr>
+                
+           
+              </tbody>
+            </table>
+    
+            <div class="buttons-list" style="margin-top: 100px">
+               <button tc-button [view]="'accent'" [disabled]="myForm.invalid" [load]="loadingButton" form="ngForm" [size]="'lg'">Pay Now</button>
+               <button tc-button [view]="'error'"  [size]="'lg'">Cancel</button>
+               <button tc-button [view]="'warning'" (click)="resetForm()" [size]="'lg'">Reset</button>
+               
+              </div>
+    
+    
+      </div>
+      <div class="col-md-6" *ngIf="patientData">
+          <table class="table table-sm table-striped table-bordered">
+              <tbody>
+                <tr>
+                  <th scope="row">Patient ID</th>
+                  <td>{{patientData.patient_id}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Patient Name</th>
+                    <td>{{patientData.name}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Age</th>
+                    <td>{{patientData.age}} {{patientData.age_type | titlecase}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Mobile Number</th>
+                    <td>{{patientData.contact.mobile_no}}</td>
+                </tr>
+               <!--- <tr *ngIf="patientData.last_visit">
+                    <th scope="row">Last Visit</th>
+                    <td>{{patientData.last_visit}}</td>
+                </tr> 
+                <tr>
+                    <th scope="row">Action</th>
+                    <td>
+                        <button tc-button [size]="'sm'" (click)="viewDetail(data._id)" [afterIcon]="'icofont-eye'" [view]="'accent'" [square]="true" [outline]="true"></button>
+                        <button tc-button (click)="updateData(data._id,data.name,data.status)" [size]="'sm'" [afterIcon]="'icofont-pencil-alt-1'" [view]="'accent'" [square]="true" [outline]="true"></button>
+                    
+                    </td>
+                </tr>-->
+                  
+              </tbody>
+            </table>
+    
+            <br>
+    
+            <div formGroupName="payment">
+            <table class="table table-sm table-bordered">
+                <tbody>
+                  <tr>
+                    <th scope="row">Total</th>
+                    <td><tc-input [tcShape]="0" [disabled]="true" [color]="['', '', '', '#000000']" [size]="'sm'" formControlName="total"></tc-input>
+                    </td>
+                  </tr>
+                  <tr>
+                      <th scope="row">Discount</th>
+                      <td><tc-input [tcShape]="0" [size]="'sm'" formControlName="discount" ></tc-input>
+                      </td>
+                  </tr>
+                  <tr>
+                      <th scope="row">Grand Total</th>
+                      <td><tc-input [tcShape]="0" [disabled]="true" [color]="['', '', '', '#000000']"  [size]="'sm'" formControlName="grand_total" ></tc-input>
+                      </td>
+                  </tr>
+                  <tr>
+                      <th scope="row">Pay</th>
+                      <td>
+                          <tc-input [tcShape]="0" [size]="'sm'" formControlName="pay"></tc-input>
+    
+                      </td>
+                  </tr>
+                  <tr>
+                      <th scope="row">Remaining</th>
+                      <td>
+                          <tc-input [tcShape]="0" [disabled]="true" [color]="['', '', '', '#000000']"  [size]="'sm'" formControlName="remaining"></tc-input>
+    
+                      </td>
+                  </tr>   
+                </tbody>
+              </table>
+            </div>
+               
+      </div>
+    
+    </div>
+    </form>

@@ -1,0 +1,171 @@
+<div class="col-md-12">
+    
+  <div class="row">
+
+        
+      <div class="col-12 col-md-12">
+        <tc-card [outline]="true">
+
+          <div class="row">
+
+            <div class="col-12 col-md-2">
+
+              <label>Indoor ID</label>
+              <select2   (valueChanged)="indoor_id_changed($event)" [options]="{'width':'100%','allowClear': true,
+              'placeholder': '',
+              'minimumInputLength': 3,'ajax':indoor_id_ajax}"></select2>
+              
+            </div>
+  
+            <div class="col-12 col-md-2">
+
+              <label>Patient Name</label>
+              <select2   (valueChanged)="patient_name_changed($event)"
+              [options]="{'width':'100%','allowClear': true,
+              'placeholder': '',
+              'minimumInputLength': 3,'ajax':patient_name_ajax}"
+              
+              
+              ></select2>
+
+
+            </div>
+
+          <div class="col-12 col-md-2">
+
+            <label>Patient ID</label>
+            
+            <select2   (valueChanged)="patient_id_changed($event)"
+            
+            [options]="{'width':'100%','allowClear': true,
+              'placeholder': '',
+              'minimumInputLength': 3,'ajax':patient_id_ajax}"
+            
+            ></select2>
+
+          </div>
+
+          <div class="col-12 col-md-2">
+              
+              <label>Phone Number</label>
+              <select2   (valueChanged)="patient_phone_changed($event)"
+              
+              [options]="{'width':'100%','allowClear': true,
+              'placeholder': '',
+              'minimumInputLength': 3,'ajax':patient_phone_ajax}"
+              
+              ></select2>
+
+          </div>
+
+        <div class="col-12 col-md-2">
+            <label>Consultant</label>
+
+            <select2   (valueChanged)="consultant_changed($event)"
+            
+            [options]="{'width':'100%','allowClear': true,
+              'placeholder': '',
+              'minimumInputLength': 3,'ajax':consultant_ajax}"
+            
+            ></select2>
+
+          </div>
+
+      <div class="col-12 col-md-2">
+        <label>Payment Status</label>
+
+        <select2 [options]="{'width':'100%'}" (valueChanged)="payment_status_changed($event)">
+            <option value="">-- All --</option>
+            <option value="paid">Paid</option>
+            <option value="due">Due</option>
+
+        </select2>
+
+          
+      
+
+        <p>{{selected}}</p>
+        
+      </div>
+
+
+      <div class="col-12">
+        <br>
+        <button tc-button (click)="rerender()" [size]="'sm'" [tcBgColor]="'#3f51b5'">Search</button>
+      </div>
+
+
+  
+
+          </div>
+       
+
+  </tc-card>
+
+      </div>
+      
+
+
+</div>
+
+
+
+
+<div class="table-responsive">
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" style="width:100%" class="table table-sm table-bordered table-hover">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Patient</th>
+          <th>Phone</th>
+          <th>Age</th>
+          <th>Room</th>
+          <th>Consultant</th>
+          <th>Charges</th>
+          <th>Discount</th>
+          <th>Total</th>
+          <th>Paid</th>
+          <th>Admission</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="persons?.length != 0">
+          <tr *ngFor="let person of persons">
+              <td>{{ person.invoice_id }}</td>
+              <td><span *ngIf="person.patient_id">{{ person.patient_id.name }}</span></td>
+              <td><span *ngIf="person.patient_id">{{ person.patient_id.contact.mobile_no}}</span></td>
+              <td><span *ngIf="person.patient_id">{{ person.patient_id.age }} {{ person.patient_id.age_type | titlecase }}</span></td>
+              <td><span *ngIf="person.room.name">{{ person.room.name }}</span></td>
+              <td><span *ngIf="person.consultant_id.name">{{ person.consultant_id.name }}</span></td>
+              <td>{{ person.invoice.charges | currency:'Rs' }}</td>
+              <td>{{ person.invoice.discount | currency:'Rs' }}</td>
+              <td>{{ person.invoice.grand_total | currency:'Rs' }}</td>
+              <td>{{ person.invoice.pay | currency:'Rs'}}</td>
+              <td>{{ person.created_at | date:'dd MMM y h:mm a' }}</td>
+             <!-- <td>{{ person.next_charges_apply | date:'dd MMM y h:mm a' }}</td> -->
+              <td class="text-center"><span [class]="person.invoice.status === 'paid' ? 'badge badge-success' : 'badge badge-danger'">{{ person.invoice.status  | titlecase }}</span></td>
+              <td class="text-center">
+                <div class="actions">
+                  <a
+                    href="javascript:void(0)"
+                    tc-button
+                    (click)="generateInovoice(person._id)"
+                    [afterIcon]="'icofont-external-link'"
+                    [square]="true"
+                    [tcShape]="500"
+                    [size]="'sm'"
+                  ></a>
+              </div>
+              </td>
+          </tr>
+      </tbody>
+      <tbody *ngIf="persons?.length == 0">
+        <tr>
+          <td colspan="6" class="no-data-available">No data!</td>
+        </tr>
+      <tbody>
+    </table>
+    </div>
+  
+  </div>

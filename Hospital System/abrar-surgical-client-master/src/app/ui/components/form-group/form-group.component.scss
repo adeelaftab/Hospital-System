@@ -1,0 +1,6 @@
+@import '~assets/sass/variables';
+
+:host {
+  display: block;
+  margin: 0 0 ($module-rem * 2);
+}

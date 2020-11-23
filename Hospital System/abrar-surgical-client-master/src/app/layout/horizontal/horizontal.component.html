@@ -1,0 +1,63 @@
+<div class="app-container" [ngClass]="{ 'boxed': appSettings.boxed, 'scrolled': scrolled }" *ngIf="appSettings">
+  <!-- Horizontal navbar -->
+  <navbar
+    [boxed]="appSettings.boxed"
+    [tcBgColor]="appSettings.topbarBg"
+    [tcColor]="appSettings.topbarColor"
+    [minHeight]="'4.28571429rem'"
+  >
+    <button
+      class="no-style navbar-toggle d-lg-none"
+      (click)="toggleSidebar(true)"
+    >
+      <span></span><span></span><span></span>
+    </button>
+
+    <logo [src]="'assets/img/logo.jpg'" [width]="147" [height]="33" class="d-none d-lg-block"></logo>
+
+    <search [data]="searchData" [layout]="'vertical'" class="d-none d-md-block"></search>
+
+    <actions [layout]="'horizontal'"></actions>
+
+    <navbar-skeleton [type]="'horizontal'" [loaded]="loaded"></navbar-skeleton>
+  </navbar>
+  <!-- end Horizontal navbar -->
+
+  <!-- Horizontal navbar 2 -->
+  <navbar
+    [orientation]="'horizontal-vertical'"
+    [boxed]="appSettings.boxed"
+    [tcBgColor]="appSettings.sidebarBg"
+    [tcColor]="appSettings.sidebarColor"
+    [opened]="appSettings.sidebarOpened"
+    [minHeight]="'2.85714286rem'"
+  >
+    <button
+      class="no-style navbar-close icofont-close-line d-lg-none"
+      (click)="toggleSidebar(false)"
+    ></button>
+
+    <logo [src]="'assets/img/logo.jpg'" [width]="147" [height]="33" class="d-lg-none"></logo>
+
+    <app-menu [src]="'assets/data/menu.json'" [orientation]="'horizontal'"></app-menu>
+
+    <navbar-skeleton [type]="'vertical'" [loaded]="loaded"></navbar-skeleton>
+  </navbar>
+  <!-- end Horizontal navbar 2 -->
+
+  <main class="main-content" (scroll)="onScroll($event)" [ngClass]="{ 'loaded': pageData?.loaded }">
+    <div class="app-loader" *ngIf="!pageData?.loaded"><i class="icofont-spinner-alt-4 rotate"></i></div>
+
+    <div class="main-content-wrap" [ngClass]="{ 'full-filled': pageData?.fullFilled }">
+      <header class="page-header" *ngIf="pageData && !pageData?.fullFilled && pageData.title.length">
+        <h1 class="page-title">{{ pageData.title }}</h1>
+      </header>
+
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+
+  <footer [boxed]="appSettings.boxed" [pageData]="pageData" [loaded]="loaded"></footer>
+
+  <div class="content-overlay" [ngClass]="{ 'show': appSettings.sidebarOpened }" (click)="toggleSidebar(false)"></div>
+</div>

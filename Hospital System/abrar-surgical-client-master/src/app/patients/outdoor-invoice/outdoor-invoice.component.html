@@ -1,0 +1,132 @@
+<!-- Print Pages Components-->
+<app-outdoor-letterhead *ngIf="outdoorData" [printData]= 'outdoorData'></app-outdoor-letterhead>
+<app-outdoor-bill *ngIf="outdoorData" [printChargesData]= 'outdoorData' [ChargesData]= 'ChargesData'></app-outdoor-bill>
+<!-- End -->
+
+
+    <ngb-tabset (tabChange)="reload($event)">
+        <ngb-tab id="tab-1" title="Information">
+          <ng-template ngbTabContent>
+            <br>
+            <div class="row col-md-12">
+            <div class="col-md-6">
+                <form [formGroup]="infoForm" id="ngForm"  (ngSubmit)="updateInfo(infoForm.valid)" novalidate>
+
+                    <div class="row" formGroupName="info">
+                      <div class="col-md-6">
+                          <tc-form-group>
+                              <tc-form-label>BP :</tc-form-label>
+                              <tc-input [tcShape]="0" [suffix]="'mmHg'" [size]="'sm'" formControlName="bp"></tc-input>
+                              
+                          
+                            </tc-form-group>
+                      </div>
+                      <div class="col-md-6">
+                          <tc-form-group>
+                              <tc-form-label>Pulse :</tc-form-label>
+                              <tc-input [tcShape]="0" [suffix]="'/m'" [size]="'sm'" formControlName="pulse"></tc-input>
+                              
+                          
+                            </tc-form-group>
+                      </div>
+                      <div class="col-md-6">
+                          <tc-form-group>
+                              <tc-form-label>Temp :</tc-form-label>
+                              <tc-input [tcShape]="0"  [suffix]="'F'" [size]="'sm'" formControlName="temp"></tc-input>
+                              
+                          
+                            </tc-form-group>
+                      </div>
+                      <div class="col-md-6">
+                          <tc-form-group>
+                              <tc-form-label>Weight :</tc-form-label>
+                              <tc-input [tcShape]="0" [size]="'sm'" formControlName="weight"></tc-input>
+                            </tc-form-group>
+                      </div>
+                      <div class="col-md-12">
+                          <tc-form-group>
+                              <tc-textarea [tcShape]="0" [resize]="true" formControlName="description" [placeholder]="'Enter Description here'"></tc-textarea>
+                            </tc-form-group>
+      
+                      </div>
+                      
+                      <br>
+                      <button tc-button [size]="'sm'" [load]="loadingButton" form="ngForm" [tcBgColor]="'#3f51b5'">Update</button>
+                      
+                    </div>
+      
+                 </form>
+            </div>
+            
+            <div class="col-md-6" *ngIf="outdoorData">
+                
+                    <table class="table table-sm table-striped table-bordered">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Outdoor ID</th>
+                                <td>{{outdoorData.invoice_id}}</td>
+                              </tr>
+                              <tr>
+                                  <th scope="row">Patient Name</th>
+                                  <td>{{outdoorData.patient_id.name}}</td>
+                              </tr>
+                          <tr>
+                            <th scope="row">Patient ID</th>
+                            <td>{{outdoorData.patient_id.patient_id}}</td>
+                          </tr>
+
+                          <tr>
+                              <th scope="row">Blood Group</th>
+                              <td>{{outdoorData.patient_id.blood_group}}</td>
+                            </tr>
+                         
+                          <tr>
+                              <th scope="row">Age</th>
+                              <td>{{outdoorData.patient_id.age}} {{outdoorData.patient_id.age_type | titlecase}}</td>
+                          </tr>
+                          <tr>
+                              <th scope="row">Mobile Number</th>
+                              <td>{{outdoorData.patient_id.contact.mobile_no}}</td>
+                          </tr>
+                          <tr>
+                              <th scope="row">Consultant</th>
+                              <td>{{outdoorData.charges[0].consultant_id.name}}</td>
+                          </tr>
+                          <tr>
+                              <th scope="row">Visit On</th>
+                              <td>{{ outdoorData.created_at | date:'dd MMM y h:mm a' }}</td>
+                          </tr>
+                          <tr>
+                              <th scope="row">Print</th>
+                              <td>
+                                  <button printSectionId="print-section" styleSheetFile="assets/css/paper.css,assets/css/outdoor-letterhead.css" ngxPrint tc-button [view]="'accent'" [size]="'sm'">Print Slip</button>
+                                  <button printSectionId="print-section-bill" style="margin-left:08px" styleSheetFile="assets/css/boot.min.css,assets/css/print_bill.css" tc-button [view]="'warning'" ngxPrint  [size]="'sm'">Print Invoice</button>
+                              
+                                  
+                                </td>
+                          </tr>
+                            
+                        </tbody>
+                      </table>
+              
+                      <br>
+          
+                      
+                  
+            </div>
+          </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tab-2" title="Charges">
+            <ng-template ngbTabContent>
+              <br>
+                  <app-outdoor-charges [_id]='id' (sendMessage)="showMessage($event)" [chargesCategoryData] ='chargesCategoryData'></app-outdoor-charges>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab id="tab-3" title="Payments">
+              <ng-template ngbTabContent>
+                <br>
+                <app-invoice-payment-list (sendMessage)="showMessage($event)" [payment_type]="'outdoor'"  [data]='outdoorData'></app-invoice-payment-list>
+              </ng-template>
+            </ngb-tab>
+      </ngb-tabset>

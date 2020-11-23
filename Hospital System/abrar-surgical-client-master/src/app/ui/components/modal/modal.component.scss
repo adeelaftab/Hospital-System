@@ -1,0 +1,118 @@
+@import "~assets/sass/variables";
+
+$_module-rem: $module-rem;
+$_bg: #fff;
+$_overlay-bg: rgba(#000,.1);
+$_width: $_module-rem * 50;
+$_h-paddig: $_module-rem * 2;
+$_v-paddig: $_module-rem * 2;
+$_title-fs: 2rem;
+$_title-fw: 500;
+$_footer-bg: rgba(#000,.05);
+$_animation: $animation;
+$_shadow: $shadow;
+$_shape: $shape;
+$_error-color: $error-color;
+
+:host {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  height: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9997;
+
+  .modal-overlay {
+    background: $_overlay-bg;
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    transition: .2s opacity $_animation;
+    width: 100%;
+  }
+  .modal-window-wrap {
+    max-height: 100%;
+    max-width: 100%;
+    overflow: auto;
+    padding: $_module-rem * 2;
+
+    .modal-window {
+      background: $_bg;
+      border-radius: $_shape;
+      box-shadow: $_shadow;
+      max-height: 100%;
+      max-width: 100%;
+      opacity: 0;
+      position: relative;
+      transition: opacity .2s $_animation;
+      width: $_width;
+
+      .close-modal {
+        font-size: 20px;
+        line-height: 1;
+        position: absolute;
+        right: 3px;
+        top: 3px;
+        transition: .2s color $_animation;
+
+        &:hover {
+          color: $_error-color;
+        }
+      }
+      .modal-header {
+        align-items: center;
+        display: flex;
+        margin: -$_module-rem / 2;
+        padding: $_v-paddig $_h-paddig;
+
+        ::ng-deep {
+          > * {
+            margin: $_module-rem / 2;
+          }
+          .title {
+            font-size: $_title-fs;
+            font-weight: $_title-fw;
+          }
+        }
+      }
+      .modal-body {
+        padding: $_v-paddig $_h-paddig;
+      }
+      .modal-footer {
+        background: $_footer-bg;
+        padding: $_v-paddig $_h-paddig;
+
+        ::ng-deep {
+          .actions {
+            display: flex;
+            flex-wrap: wrap;
+            margin: -$_module-rem / 2;
+
+            > * {
+              margin: $_module-rem / 2;
+            }
+          }
+        }
+      }
+    }
+  }
+  &.opened {
+    .modal-overlay {
+      opacity: 1;
+      transition: .2s opacity 0s $_animation;
+    }
+    .modal-window-wrap {
+      .modal-window {
+        opacity: 1;
+        transition: .2s opacity .2s $_animation;
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+<form class="search-wrap" [formGroup]="searchForm">
+  <tc-autocomplete
+    formControlName="search"
+    [suffixIcon]="'icofont icofont-search'"
+    [data]="data"
+    [key]="'title'"
+    [placeholder]="'Type page\'s title'"
+    (keydown.enter)="goTo($event, searchForm.value.search)"
+    (click)="goTo($event, searchForm.value.search)"
+  ></tc-autocomplete>
+</form>

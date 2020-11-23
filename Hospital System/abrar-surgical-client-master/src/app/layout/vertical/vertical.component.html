@@ -1,0 +1,136 @@
+<div class="app-container" [ngClass]="{ 'boxed': appSettings.boxed, 'scrolled': scrolled }" *ngIf="appSettings">
+  <!-- Horizontal navbar -->
+  <navbar
+    [boxed]="appSettings.boxed"
+    [tcBgColor]="appSettings.topbarBg"
+    [tcColor]="appSettings.topbarColor"
+    [minHeight]="'4.28571429rem'"
+  >
+    <button
+      class="no-style navbar-toggle d-lg-none"
+      (click)="toggleSidebar(true)"
+    >
+      <span></span><span></span><span></span>
+    </button>
+
+    <search [data]="searchData" [layout]="'vertical'" class="d-none d-md-block"></search>
+
+    <actions [layout]="'vertical'"></actions>
+
+    <navbar-skeleton [type]="'horizontal'" [loaded]="loaded"></navbar-skeleton>
+  </navbar>
+  <!-- end Horizontal navbar -->
+
+  <!-- Vertical navbar -->
+  <navbar
+    [orientation]="'vertical'"
+    [tcBgColor]="appSettings.sidebarBg"
+    [tcColor]="appSettings.sidebarColor"
+    [opened]="appSettings.sidebarOpened"
+  >
+    <button
+      class="no-style navbar-close icofont-close-line d-lg-none"
+      (click)="toggleSidebar(false)"
+    ></button>
+
+    <logo [src]="'assets/img/logo.jpg'" [width]="147" [height]="33"></logo>
+
+    <app-menu [src]="'assets/data/menu.json'"></app-menu>
+
+    <div class="add-patient">
+      <button
+        tc-button
+        [view]="'accent'"
+        [beforeIcon]="'icofont-plus'"
+        [routerLink]="['/vertical', 'add-patient']"
+      >Add Patient</button>
+    </div>
+
+    <menu class="assistant-menu">
+      
+     
+
+      <a href="#" class="link">
+        <tc-icon [iconClass]="'icofont-question-square'" [tcFontSize]="'1.3em'"></tc-icon>FAQ & Support
+      </a>
+    </menu>
+
+    <navbar-skeleton [type]="'vertical'" [loaded]="loaded"></navbar-skeleton>
+  </navbar>
+  <!-- end Vertical navbar -->
+
+  <main class="main-content" (scroll)="onScroll($event)" [ngClass]="{ 'loaded': pageData?.loaded }">
+    <div class="app-loader" *ngIf="!pageData?.loaded"><i class="icofont-spinner-alt-4 rotate"></i></div>
+
+    <div class="main-content-wrap" [ngClass]="{ 'full-filled': pageData?.fullFilled }">
+      <header class="page-header" *ngIf="pageData && !pageData?.fullFilled && pageData.title.length">
+        <h1 class="page-title">{{ pageData.title }}</h1>
+      </header>
+
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+
+  <footer [boxed]="appSettings.boxed" [pageData]="pageData" [loaded]="loaded"></footer>
+
+  <div class="content-overlay" [ngClass]="{ 'show': appSettings.sidebarOpened }" (click)="toggleSidebar(false)"></div>
+</div>
+
+<!-- Modal window -->
+<ng-container>
+  <ng-template #modalBody>
+    <form [formGroup]="patientForm" novalidate class="new-patient-form">
+      <tc-form-group class="avatar-box d-flex">
+        <input type="file" accept="image/*" (change)="onFileChanged($event)" #fileInput hidden>
+
+        <tc-avatar [src]="currentAvatar"></tc-avatar>
+        <button
+          tc-button
+          [type]="'button'"
+          [afterIcon]="'icofont-ui-user'"
+          [view]="'accent'"
+          [outline]="true"
+          (click)="fileInput.click()"
+        >
+          Select image
+        </button>
+      </tc-form-group>
+
+      <tc-form-group>
+        <tc-input [placeholder]="'Name'" formControlName="name"></tc-input>
+      </tc-form-group>
+
+      <tc-form-group>
+        <tc-input [placeholder]="'Number'" [type]="'number'" formControlName="number"></tc-input>
+      </tc-form-group>
+
+      <div class="row">
+        <div class="col-12 col-sm-6">
+          <tc-form-group>
+            <tc-input [placeholder]="'Age'" [type]="'number'" formControlName="age"></tc-input>
+          </tc-form-group>
+        </div>
+
+        <div class="col-12 col-sm-6">
+          <tc-form-group>
+            <tc-select [placeholder]="'Gender'" formControlName="gender" [options]="gender"></tc-select>
+          </tc-form-group>
+        </div>
+      </div>
+
+      <tc-form-group class="mb-0">
+        <tc-textarea [placeholder]="'Address'" formControlName="address"></tc-textarea>
+      </tc-form-group>
+    </form>
+  </ng-template>
+
+  <ng-template #modalFooter>
+    <div class="actions justify-content-between">
+      <button tc-button [type]="'button'" [view]="'error'" (click)="closeModal()">Cancel</button>
+      <button tc-button [view]="'info'" [disabled]="patientForm.invalid" (click)="addPatient(patientForm)">
+        Add patient
+      </button>
+    </div>
+  </ng-template>
+</ng-container>
+<!-- end Modal window -->

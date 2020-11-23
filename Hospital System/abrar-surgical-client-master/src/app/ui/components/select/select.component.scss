@@ -1,0 +1,261 @@
+@import '~assets/sass/variables';
+
+$_bg: (
+  default: #EBEBEB,
+  hover: #EBEBEB,
+  focus: rgba(accent-palette(500),.01),
+  disabled: rgba(#ccc,.1)
+);
+$_border: (
+  default: #EBEBEB,
+  hover: #EBEBEB,
+  focus: accent-palette(500),
+  disabled: rgba(#ccc,.5)
+);
+$_color: (
+  default: main-palette(500),
+  hover: main-palette(500),
+  focus: main-palette(500),
+  disabled: #bdbdbd
+);
+
+$_module-rem: $module-rem;
+$_fs: 1rem;
+$_lh: $_module-rem * 2 / $_fs;
+$_padding-h: $_module-rem * 2;
+$_padding-v: $_module-rem;
+$_error-color: $error-color;
+$_shape: 20px;
+$_animation: $animation;
+$_shadow-hover: $shadow-hover;
+$_list-height: $_module-rem * 21;
+$_list-bg: #fff;
+$_list-border-color: #fff;
+$_list-shadow: $shadow;
+
+// size sm
+$_fs-sm: ($_fs * .9);
+$_lh-sm: $_module-rem * 2 / $_fs-sm;
+$_shape-sm: ($_shape * .8);
+$_padding-v-sm: ($_module-rem / 2);
+
+// size lg
+$_fs-lg: ($_fs * 1.3);
+$_lh-lg: $_module-rem * 2 / $_fs-lg;
+$_shape-lg: ($_shape * 1.5);
+$_padding-v-lg: $_module-rem * 1.5;
+
+:host {
+  border-radius: $_shape;
+  display: block;
+  font-size: $_fs;
+  line-height: $_lh;
+  position: relative;
+
+  .select-box {
+    align-items: center;
+    background: map-get($_bg, default);
+    border: 1px solid map-get($_border, default);
+    border-radius: inherit;
+    color: map-get($_color, default);
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+    overflow: hidden;
+    padding: calc(#{$_padding-v} - 1px) calc((#{$_padding-h} / 2) - .2em) calc(#{$_padding-v} - 1px) calc(#{$_padding-h} - .2em);
+    transition:
+      background .2s $_animation,
+      border-color .2s $_animation,
+      box-shadow .2s $_animation,
+      color .2s $_animation;
+    width: 100%;
+
+    > * {
+      padding: 0 ($_module-rem / 2);
+    }
+    .value {
+      flex-grow: 1;
+      text-align: left;
+      padding: 0 .2em;
+      white-space: nowrap;
+    }
+    .placeholder {
+      color: map-get($_color, default);
+      flex-grow: 1;
+      opacity: 0.6;
+      padding: 0 .2em;
+      white-space: nowrap;
+    }
+    .icon {
+      align-self: flex-start;
+      align-items: center;
+      display: flex;
+      font-size: 1.5em;
+      height: $_module-rem * 2;
+      line-height: 1;
+      opacity: .9;
+      transition:
+        color .2s $_animation,
+        opacity .2s $_animation,
+        transform .2s $_animation;
+
+      &.clear {
+        color: rgba($_error-color,.5);
+        transform: translateX(100%);
+
+        &:hover {
+          color: $_error-color;
+        }
+      }
+      &.caret {
+        opacity: 0;
+
+        &.active {
+          transform: rotate(180deg);
+        }
+      }
+    }
+    .selected-option {
+      align-items: center;
+      background: rgba(#000,.1);
+      border-radius: 4px;
+      display: inline-flex;
+      flex-wrap: nowrap;
+      margin: $_module-rem / 2;
+      padding: 0 ($_module-rem);
+      transition: background .2s $_animation;
+
+      .close-icon {
+        margin-left: $_module-rem / 2;
+      }
+      &:hover {
+        background: rgba($_error-color,.2);
+      }
+    }
+  }
+  .select-list {
+    background: $_list-bg;
+    border: 1px solid $_list-border-color;
+    box-shadow: $_list-shadow;
+    border-radius: $_shape;
+    display: flex;
+    flex-flow: column nowrap;
+    padding: ($_module-rem * 2) 0;
+    position: absolute;
+    overflow: hidden;
+    top: 100%;
+    width: 100%;
+    z-index: 9995;
+
+    .filter {
+      padding: $_module-rem $_padding-h;
+      width: 100%;
+    }
+    .not-found {
+      padding: $_module-rem;
+      font-size: 1.2em;
+      opacity: .8;
+    }
+    .options {
+      max-height: $_list-height;
+      overflow: auto;
+
+      .option {
+        cursor: pointer;
+        padding: ($_module-rem / 2) $_padding-h;
+        transition:
+          background .2s $_animation,
+          color .2s $_animation;
+        width: 100%;
+
+        &.selected {
+          color: accent-palette(500);
+        }
+        &.hovered,
+        &:hover {
+          background: rgba(#000,.01);
+          color: accent-palette(500);
+        }
+      }
+    }
+  }
+  &:hover,
+  &.opened {
+    .select-box {
+      .icon {
+        &.clear {
+          transform: translateX(0);
+        }
+        &.caret {
+          opacity: 1;
+        }
+      }
+    }
+  }
+  &:hover {
+    .select-box {
+      background: map-get($_bg, hover);
+      border-color: map-get($_border, hover);
+      box-shadow: $_shadow-hover;
+      color: map-get($_color, hover);
+    }
+  }
+  &.multiple {
+    .select-box {
+      height: unset;
+      min-height: $_padding-v + ($_fs * $_lh);
+
+      > .value {
+        margin: -($_module-rem / 2);
+        white-space: normal;
+      }
+    }
+  }
+  &.opened {
+    .select-box {
+      background: map-get($_bg, focus);
+      border-color: map-get($_border, focus);
+      box-shadow: $_shadow-hover;
+      color: map-get($_color, focus);
+    }
+  }
+  &.disabled {
+    cursor: not-allowed;
+
+    .select-box {
+      background: map-get($_bg, disabled);
+      border-color: map-get($_border, disabled);
+      box-shadow: none;
+      color: map-get($_color, disabled);
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+  &.ng-invalid.ng-touched,
+  .has-error & {
+    .select-box {
+      background-color: rgba($error-color, .1);
+      border: 1px solid $error-color;
+    }
+  }
+  &.select-sm {
+    border-radius: $_shape-sm;
+    font-size: $_fs-sm;
+    line-height: $_lh-sm;
+
+    .select-box {
+      padding-top: calc(#{$_padding-v-sm} - 1px);
+      padding-bottom: calc(#{$_padding-v-sm} - 1px);
+    }
+  }
+  &.select-lg {
+    border-radius: $_shape-lg;
+    font-size: $_fs-lg;
+    line-height: $_lh-lg;
+
+    .select-box {
+      padding-top: calc(#{$_padding-v-lg} - 1px);
+      padding-bottom: calc(#{$_padding-v-lg} - 1px);
+    }
+  }
+}

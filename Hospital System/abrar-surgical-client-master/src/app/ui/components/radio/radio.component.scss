@@ -1,0 +1,14 @@
+@import '~assets/sass/variables';
+
+$_module-rem: $module-rem;
+
+:host {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin: -$_module-rem / 2;
+
+  &.tc-radio-horizontal {
+    flex-direction: row;
+  }
+}

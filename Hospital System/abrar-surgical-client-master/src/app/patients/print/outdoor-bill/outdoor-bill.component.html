@@ -1,0 +1,243 @@
+<div id="print-section-bill" style="display:none"> 
+    <div class="A4">
+        <div class="container">
+    
+            <div class="row">
+                <div class="col-sm-7">
+                    <h4>ABRAR SURGERY</h4>
+                    <p style="margin-top: -7px;"><strong>291-B(1),<br>Peshawar Road, Rawalpindi Cantt</strong></p>
+                </div>
+                <div class="col-sm-5">
+                    <p >Tel: 5565813, 5584421
+                        <br>Web: www.abrardiagnostics.com.pk</p>
+                </div>
+    
+            </div>
+            <hr>
+            <hr>
+    
+            <div class="row" style="margin-top: 15px;">
+                <div class="col-sm-7">
+                    <p>
+                        <strong>Outdoor Bill ID:</strong>
+                        {{printChargesData.invoice_id}}<br>
+                        <strong>Patient's Name:</strong>
+                        {{printChargesData.patient_id.name}}<br>
+                        <strong>Bill Date:</strong>
+                        
+    
+    
+                        {{ printChargesData.created_at | date:'dd MMM y h:mm a' }}
+                        <br>
+                    </p>
+                </div>
+                <div class="col-sm-5">
+                    <p class="">
+                        <strong>Patient's ID:</strong>
+                        {{printChargesData.patient_id.patient_id}}<br>
+                        <strong>Age/Sex:</strong>
+                        {{printChargesData.patient_id.age}} {{printChargesData.patient_id.age_type | titlecase}} / {{printChargesData.patient_id.gender | titlecase}}<br>
+                        <strong>Consultant:</strong>
+                        {{printChargesData.charges[0].consultant_id.name}}
+                        
+                    </p>
+                </div>
+            </div>
+    
+    
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-default">
+    
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-condensed font">
+                                    <thead style="
+                                        border-top: 2px solid black;
+                                        border-bottom:  2px solid black;
+                                        ">
+                                    <tr>
+                                        <td><strong>Name</strong></td>
+                                        <td class="text-center"></td>
+                                        <td class="text-right"><strong>Charges</strong></td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                                                                        
+                                    
+                                    <tr *ngFor="let data of printCharge; let i = index">
+                            
+                                                <td ><b>{{pad(i+1)}}</b> {{data.name}} </td>
+                                                <td></td>
+                                                <td class="text-right">Rs {{data.charge}}</td>
+                                    </tr>
+
+                                    <tr *ngIf="printChargesData.invoice.discount > 0">
+                                        <td class="no-line"></td>
+                                        <td class="no-line text-right"><strong>Subtotal</strong></td>
+                                        <td class="no-line text-right">Rs {{printChargesData.invoice.grand_total + printChargesData.invoice.discount }}</td>
+                                    </tr>
+
+                                    <tr *ngIf="printChargesData.invoice.discount > 0">
+                                        <td class="no-line"></td>
+                                        <td class="no-line text-right"><strong>Discount</strong></td>
+                                        <td class="no-line text-right">Rs {{printChargesData.invoice.discount}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="no-line"></td>
+                                        <td class="no-line text-right"><strong>Total</strong></td>
+                                        <td class="no-line text-right">Rs {{printChargesData.invoice.grand_total}}</td>
+                                    </tr>
+
+                                   
+    
+    
+                                    <tr>
+                                        <td class="no-line"></td>
+                                        <td class="no-line text-right"><strong>Paid</strong></td>
+                                        <td class="no-line text-right">Rs {{printChargesData.invoice.pay}}</td>
+                                    </tr>
+    
+                                    
+                                    <tr>
+                                        <td class="no-line"></td>
+                                        <td class="no-line text-right"><strong>Balance</strong></td>
+                                        <td class="no-line text-right">Rs {{printChargesData.invoice.remaining}}</td>
+    
+                                    </tr>
+    
+                                    
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <img src="assets/img/frame.png" style="position: absolute;top: -220px;right: 0px;" alt="Facebook QR Code" height="72" width="62">
+                </div>
+            </div>
+        </div>
+        <br>
+    <hr>
+    <br>
+        <div class="container">
+    
+            <div class="row">
+                <div class="col-sm-7">
+                    <h4>ABRAR SURGERY</h4>
+                    <p style="margin-top: -7px;"><strong>291-B(1),<br>Peshawar Road, Rawalpindi Cantt</strong></p>
+                </div>
+                <div class="col-sm-5">
+                    <p >Tel: 5565813, 5584421
+                        <br>Web: www.abrardiagnostics.com.pk</p>
+                </div>
+    
+            </div>
+            <hr>
+            <hr>
+    
+            <div class="row" style="margin-top: 15px;">
+                <div class="col-sm-7">
+                    <p>
+                        <strong>Outdoor Bill ID:</strong>
+                        {{printChargesData.invoice_id}}<br>
+                        <strong>Patient's Name:</strong>
+                        {{printChargesData.patient_id.name}}<br>
+                        <strong>Bill Date:</strong>
+                        
+    
+    
+                        {{ printChargesData.created_at | date:'dd MMM y h:mm a' }}
+                        <br>
+                    </p>
+                </div>
+                <div class="col-sm-5">
+                    <p class="">
+                        <strong>Patient's ID:</strong>
+                        {{printChargesData.patient_id.patient_id}}<br>
+                        <strong>Age/Sex:</strong>
+                        {{printChargesData.patient_id.age}} {{printChargesData.patient_id.age_type | titlecase}} / {{printChargesData.patient_id.gender | titlecase}}<br>
+                        <strong>Consultant:</strong>
+                        {{printChargesData.charges[0].consultant_id.name}}
+                        
+                    </p>
+                </div>
+            </div>
+    
+    
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-default">
+    
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-condensed font">
+                                    <thead style="
+                                        border-top: 2px solid black;
+                                        border-bottom:  2px solid black;
+                                        ">
+                                    <tr>
+                                        <td><strong>Name</strong></td>
+                                        <td class="text-center"></td>
+                                        <td class="text-right"><strong>Charges</strong></td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                                                                        
+                                    
+                                    
+                                    <tr *ngFor="let data of printCharge; let i = index">
+                            
+                                                <td ><b>{{pad(i+1)}}</b> {{data.name}} </td>
+                                                <td></td>
+                                                <td class="text-right">Rs {{data.charge}}</td>
+                                    </tr>
+									
+                                    <tr *ngIf="printChargesData.invoice.discount > 0">
+                                        <td class="no-line"></td>
+                                        <td class="no-line text-right"><strong>Subtotal</strong></td>
+                                        <td class="no-line text-right">Rs {{printChargesData.invoice.grand_total + printChargesData.invoice.discount }}</td>
+                                    </tr>
+
+                                    <tr *ngIf="printChargesData.invoice.discount > 0">
+                                        <td class="no-line"></td>
+                                        <td class="no-line text-right"><strong>Discount</strong></td>
+                                        <td class="no-line text-right">Rs {{printChargesData.invoice.discount}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="no-line"></td>
+                                        <td class="no-line text-right"><strong>Total</strong></td>
+                                        <td class="no-line text-right">Rs {{printChargesData.invoice.grand_total}}</td>
+                                    </tr>
+
+                                   
+    
+    
+                                    <tr>
+                                        <td class="no-line"></td>
+                                        <td class="no-line text-right"><strong>Paid</strong></td>
+                                        <td class="no-line text-right">Rs {{printChargesData.invoice.pay}}</td>
+                                    </tr>
+    
+                                    
+                                    <tr>
+                                        <td class="no-line"></td>
+                                        <td class="no-line text-right"><strong>Balance</strong></td>
+                                        <td class="no-line text-right">Rs {{printChargesData.invoice.remaining}}</td>
+    
+                                    </tr>
+    
+                                    
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <img src="assets/img/frame.png" style="position: absolute;top: -220px;right: 0px;" alt="Facebook QR Code" height="72" width="62">
+                </div>
+            </div>
+        </div>
+    
+    </div>
+</div>

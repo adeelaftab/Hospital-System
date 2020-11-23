@@ -1,0 +1,48 @@
+@import '../../../../assets/sass/variables';
+
+$_module-rem: $module-rem;
+
+:host {
+  align-items: center;
+  background: rgba(#000,.1);
+  border-radius: 50%;
+  display: flex;
+  font-size: 30px;
+  font-weight: 700;
+  height: $_module-rem * 4;
+  justify-content: center;
+  line-height: 1;
+  margin: 0 ($_module-rem * 2) 0 0;
+  overflow: hidden;
+  position: relative;
+  text-transform: uppercase;
+  width: $_module-rem * 4;
+
+  img {
+    max-height: 100%;
+    max-width: 100%;
+  }
+  .avatar-loader {
+    align-items: center;
+    border-radius: inherit;
+    color: rgba(#000,.5);
+    display: flex;
+    font-size: inherit;
+    height: 100%;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+    width: 100%;
+  }
+  &.avatar-loading {
+    img,
+    .initials {
+      visibility: hidden;
+    }
+    .avatar-loader {
+      visibility: visible;
+    }
+  }
+}

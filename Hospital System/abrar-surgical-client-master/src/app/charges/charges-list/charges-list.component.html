@@ -1,0 +1,46 @@
+<button type="button" (click)="addNewData()" class="btn btn-lg btn-outline-primary text-right">Add New</button>
+<br>
+<br>
+<div class="col-md-12">
+<div class="table-responsive">
+
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" style="width:100%"  class="table table-sm table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>S.no</th>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Charges</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of chargesListData; index as i">
+      <td>{{ i+1 }}</td>
+      <td>{{ data.name }}</td>
+      <td>{{ data.category.category_name }}</td>
+      <td>{{ data.charges }}</td>
+      <td class="text-center"><span [class]="data.status === 'active' ? 'badge badge-success' : 'badge badge-danger'">{{ data.status  | titlecase }}</span></td>
+      <td class="text-center">
+          <div class="actions">
+              <a
+                href="javascript:void(0)"
+                tc-button
+                (click)="updateData(data._id,data.name,data.category._id,data.charges,data.status)"
+                [afterIcon]="'icofont-pencil-alt-1'"
+                [square]="true"
+                [tcShape]="500"
+                [size]="'sm'"
+                [view]="'accent'"
+                
+              ></a>
+          </div>
+      </td>
+    </tr>
+  </tbody>
+  </table>
+  </div>
+
+</div>
+

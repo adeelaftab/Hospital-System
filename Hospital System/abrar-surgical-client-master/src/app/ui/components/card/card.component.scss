@@ -1,0 +1,119 @@
+@import '~assets/sass/variables';
+
+$_module-rem: $module-rem;
+$_shape: $shape;
+$_shadow: $shadow;
+$_title-fs: 2rem;
+$_title-fw: 500;
+
+$_types: (
+  default: (
+    bg: transparent,
+    color: inherit
+  ),
+  accent: (
+    bg: accent-palette(500),
+    color: accent-contrast(500)
+  ),
+  success: (
+    bg: $success-color,
+    color: $success-contrast,
+  ),
+  info: (
+    bg: $info-color,
+    color: $info-contrast,
+  ),
+  warning: (
+    bg: $warning-color,
+    color: $warning-contrast,
+  ),
+  error: (
+    bg: $error-color,
+    color: $error-contrast,
+  )
+);
+
+:host {
+  background: transparent 50% 50% no-repeat;
+  background-size: cover;
+  border-radius: $_shape;
+	display: block;
+	margin-bottom: $_module-rem * 4;
+	position: relative;
+
+  .card-img {
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+    width: 100%;
+  }
+  .card-header {
+    margin: 0;
+
+    .card-title {
+      font-size: $_title-fs;
+      font-weight: $_title-fw;
+      margin: 0;
+    }
+  }
+  .card-content {
+    display: block;
+    padding: ($_module-rem * 2) 0 0;
+    position: relative;
+    width: 100%;
+
+    &:first-child {
+      padding-top: 0;
+    }
+  }
+  .bg-image {
+    border-radius: inherit;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  @each $type, $color in $_types {
+    &.card-#{$type} {
+      background: map-get($color, bg);
+      box-shadow: $_shadow;
+      color: map-get($color, color);
+
+      .card-header {
+        padding: $_module-rem ($_module-rem * 2) 0;
+      }
+      .card-content {
+        padding: $_module-rem * 2;
+      }
+      &.outline {
+        border-color: map-get($color, bg);
+      }
+    }
+  }
+  &.custom-bg-color,
+  &.custom-border-color,
+  &.custom-gradient,
+  &.outline,
+  &.bg-image {
+    box-shadow: $_shadow;
+
+    .card-header {
+      padding: $_module-rem ($_module-rem * 2) 0;
+    }
+    .card-content {
+      padding: $_module-rem * 2;
+    }
+  }
+	&.outline {
+		background: none;
+    border: 1px solid main-palette(500);
+    color: inherit;
+	}
+}
+
+

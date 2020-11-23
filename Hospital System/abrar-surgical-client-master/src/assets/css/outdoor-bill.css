@@ -1,0 +1,28 @@
+table{
+                width: 100%;    
+                font-size: 12px;
+                border-collapse: collapse;
+            }
+            td:first-child{
+                width: 15%;
+            }
+            .width{
+                width:54%;
+            }
+            .td-right{
+                text-align: right;
+            }
+            .bill-padding{
+                padding-right: 17px;
+            }
+            h3{
+                font-size: 12px;
+            }
+            .center{
+                margin-top: 15px;
+                width: 85%;
+                margin: auto;
+            }
+            td{
+                padding:4px 0px 4px 0px;
+            }

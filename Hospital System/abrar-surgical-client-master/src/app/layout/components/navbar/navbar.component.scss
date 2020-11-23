@@ -1,0 +1,161 @@
+@import '~assets/sass/variables';
+
+:host {
+  $_bg: #fff;
+  $_color: $main-color;
+  $_color: var(--main-color);
+
+  background: $_bg;
+  color: $_color;
+  display: block;
+  transition: box-shadow .2s $animation;
+  will-change: box-shadow;
+
+  .navbar-wrap {
+    align-items: center;
+    background: inherit;
+    display: flex;
+    height: 100%;
+    justify-content: space-between;
+    margin: 0 auto;
+    min-height: inherit;
+    padding: 0 $module-rem;
+    position: relative;
+
+    ::ng-deep {
+      > * {
+        margin: 0 $module-rem;
+      }
+      .navbar-toggle {
+        align-items: center;
+        color: inherit;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        height: 40px;
+        justify-content: center;
+        width: 35px;
+
+        span {
+          background: main-palette(500);
+          display: block;
+          height: 3px;
+          margin: 4px 0;
+          width: 35px;
+        }
+      }
+      .navbar-close {
+        color: inherit;
+        cursor: pointer;
+        font-size: 30px;
+        position: absolute;
+        right: $module-rem;
+        top: $module-rem * 1.5;
+        width: auto !important;
+        z-index: 1;
+      }
+      .add-patient {
+        height: 100%;
+        padding: ($module-rem * 2) ($module-rem * 4);
+      }
+      .assistant-menu {
+        display: block;
+        padding: 0 ($module-rem * 4) ($module-rem * 2);
+
+        .link {
+          color: inherit;
+          display: block;
+          font-weight: 700;
+          opacity: .3;
+          padding: ($module-rem / 2) 0;
+          transition: opacity .2s $animation;
+
+          .tc-icon {
+            margin-right: $module-rem;
+            padding: 0;
+          }
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+  &.boxed {
+    .navbar-wrap {
+      max-width: $boxed-width;
+      max-width: var(--boxed-width);
+    }
+  }
+  &.horizontal-vertical {
+    @media #{$max991} {
+      display: flex;
+      justify-content: flex-end;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      transform: translateX(-$vertical-navbar-width);
+      transition: transform .2s $animation;
+      width: $vertical-navbar-width;
+      will-change: transform, width;
+      z-index: 9997;
+
+      .navbar-wrap {
+        align-items: flex-start;
+        flex-direction: column;
+        height: 100%;
+        justify-content: flex-start;
+        overflow: auto;
+        padding: 0;
+        width: $vertical-navbar-width;
+
+        ::ng-deep {
+          > * {
+            margin: 0;
+            width: 100%;
+          }
+        }
+      }
+      &.opened {
+        transform: translateX(0);
+      }
+    }
+  }
+  &.vertical {
+    display: flex;
+    justify-content: flex-end;
+    height: 100%;
+    left: 0;
+    overflow: auto;
+    position: absolute;
+    top: 0;
+    transition: transform .2s $animation;
+    width: $vertical-navbar-width;
+    will-change: transform, width;
+    -webkit-overflow-scrolling: touch;
+    z-index: 9997;
+    @media #{$max991} {
+      transform: translateX(-$vertical-navbar-width);
+    }
+
+    .navbar-wrap {
+      align-items: flex-start;
+      flex-direction: column;
+      height: 100%;
+      justify-content: flex-start;
+      padding: 0;
+      width: $vertical-navbar-width;
+
+      ::ng-deep {
+        > * {
+          margin: 0;
+          width: 100%;
+        }
+      }
+    }
+    &.opened {
+      transform: translateX(0);
+    }
+  }
+}

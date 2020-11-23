@@ -1,0 +1,177 @@
+<div class="modal-header">
+    <h4 class="modal-title"><span *ngIf="_id else new">Update Consultant</span></h4>
+    <ng-template #new>
+        Add New Consultant
+       </ng-template>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    
+  <form [formGroup]="myForm" id="ngForm"  (ngSubmit)="_id ? updateData(myForm.valid) : saveData(myForm.valid)" novalidate>
+
+    <div class="row">
+        <div class="col-md-6">
+            <tc-form-group>
+                <div class="row align-items-center">
+                  <div class="col-12 col-md-4">
+                    <tc-form-label class="mb-md-0">Name</tc-form-label>
+                  </div>
+                  <div class="col-12 col-md-8">
+                    <tc-input [tcShape]="0" [size]="'sm'" formControlName="name"></tc-input>
+                  </div>
+                </div>
+              </tc-form-group>
+              <tc-form-group>
+                  <div class="row align-items-center">
+                    <div class="col-12 col-md-4">
+                      <tc-form-label class="mb-md-0">Specialization</tc-form-label>
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <tc-select [tcShape]="0" [size]="'sm'"  [placeholder]="'Select'" [multiple]="true"  [options]="specializationData" formControlName="specialization"></tc-select>
+                      </div>
+                  </div>
+                </tc-form-group>
+                <tc-form-group>
+                    <div class="row align-items-center">
+                      <div class="col-12 col-md-4">
+                        <tc-form-label class="mb-md-0">Mobile No</tc-form-label>
+                      </div>
+                      <div class="col-12 col-md-8">
+                        <tc-input [tcShape]="0" [size]="'sm'" formControlName="mobile_no"></tc-input>
+                      </div>
+                    </div>
+                  </tc-form-group>
+                  <tc-form-group>
+                      <div class="row align-items-center">
+                        <div class="col-12 col-md-4">
+                          <tc-form-label class="mb-md-0">Office No</tc-form-label>
+                        </div>
+                        <div class="col-12 col-md-8">
+                          <tc-input [tcShape]="0" [size]="'sm'" formControlName="office_no"></tc-input>
+                        </div>
+                      </div>
+                    </tc-form-group>
+                    <tc-form-group>
+                        <div class="row align-items-center">
+                          <div class="col-12 col-md-4">
+                            <tc-form-label class="mb-md-0">Email</tc-form-label>
+                          </div>
+                          <div class="col-12 col-md-8">
+                            <tc-input [tcShape]="0" [size]="'sm'" formControlName="email"></tc-input>
+                          </div>
+                        </div>
+                      </tc-form-group>
+                      <tc-form-group>
+                          <div class="row align-items-center">
+                            <div class="col-12 col-md-4">
+                              <tc-form-label class="mb-md-0">Address</tc-form-label>
+                            </div>
+                            <div class="col-12 col-md-8">
+                                <tc-textarea [tcShape]="0" formControlName="address"></tc-textarea>
+                              
+                            </div>
+                          </div>
+                        </tc-form-group>
+                        <tc-form-group>
+                            <div class="row align-items-center">
+                              <div class="col-12 col-md-4">
+                                <tc-form-label class="mb-md-0">Consultant Type</tc-form-label>
+                              </div>
+                              <div class="col-12 col-md-8">
+                                  <tc-select [tcShape]="0" [size]="'sm'" [placeholder]="'Select'" [multiple]="true"  [options]="typeData" formControlName="consultant_type"></tc-select>
+                                </div>
+                            </div>
+                          </tc-form-group>
+                          <tc-form-group>
+                              <div class="row align-items-center">
+                                <div class="col-12 col-md-4">
+                                  <tc-form-label class="mb-md-0">Status</tc-form-label>
+                                </div>
+                                <div class="col-12 col-md-8">
+                                    <tc-select [tcShape]="0" [size]="'sm'"  [options]="statusData" formControlName="status"></tc-select>
+                                 
+                                </div>
+                              </div>
+                            </tc-form-group>
+        </div>
+
+    
+          <div class="col-md-6">
+              <div formGroupName="charges">
+
+                  <div class="row">
+                      <div class="col-md-6">
+                          <tc-form-group>
+                              <tc-form-label>Normal Fee</tc-form-label>
+                              <tc-input [tcShape]="0" [size]="'sm'" formControlName="normal"></tc-input>
+                            </tc-form-group>
+                      </div>
+                      <div class="col-md-6">
+                          <tc-form-group>
+                              <tc-form-label>Hospital Amount</tc-form-label>
+                              <tc-input [tcShape]="0" [size]="'sm'" formControlName="normal_hospital_share"></tc-input>
+                            </tc-form-group>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <tc-form-group>
+                                <tc-form-label>First Time Fee</tc-form-label>
+                                <tc-input [tcShape]="0" [size]="'sm'" formControlName="first_time"></tc-input>
+                              </tc-form-group>
+                        </div>
+                        <div class="col-md-6">
+                            <tc-form-group>
+                                <tc-form-label>Hospital Amount</tc-form-label>
+                                <tc-input [tcShape]="0" [size]="'sm'" formControlName="first_time_hospital_share"></tc-input>
+                              </tc-form-group>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-6">
+                              <tc-form-group>
+                                  <tc-form-label>With In 7-Days</tc-form-label>
+                                  <tc-input [tcShape]="0" [size]="'sm'" formControlName="seven_days"></tc-input>
+                                </tc-form-group>
+                          </div>
+                          <div class="col-md-6">
+                              <tc-form-group>
+                                  <tc-form-label>Hospital Amount</tc-form-label>
+                                  <tc-input [tcShape]="0" [size]="'sm'" formControlName="seven_days_hospital_share"></tc-input>
+                                </tc-form-group>
+                          </div>
+                        </div>
+                  </div>
+          </div>
+    
+    </div>
+
+    </form>
+     
+  </div>
+  <div class="modal-footer">
+     
+      <button
+      tc-button
+      [type]="'button'"
+      [view]="'warning'"
+      (click)="resetForm()"
+    >
+      Reset
+    </button>
+  
+    <button
+      tc-button
+      [view]="'accent'"
+      [disabled]="myForm.invalid"
+      [load]="loadingButton"
+      form="ngForm"
+    >
+      Submit
+    </button>
+      <button tc-button [view]="'error'" (click)="activeModal.dismiss('Close clicked')">Close</button>
+  </div>

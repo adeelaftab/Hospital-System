@@ -1,0 +1,16 @@
+<label class="tc-radio-wrap" (click)="switch(_value)">
+  <input
+    type="radio"
+    name="{{ name }}"
+    class="radio-input"
+    [value]="_value"
+    [attr.checked]="checked ? true : null"
+    [attr.disabled]="disabled ? true : null"
+  >
+
+  <div class="tc-radio-handle" [ngStyle]="getStyles()">
+    <span class="check-detector" [ngStyle]="getMarkerColor()"></span>
+  </div>
+
+  <div class="tc-radio-label" [ngStyle]="getLabelColor()"><ng-content></ng-content></div>
+</label>

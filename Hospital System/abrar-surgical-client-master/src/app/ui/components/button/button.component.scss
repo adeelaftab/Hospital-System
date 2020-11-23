@@ -1,0 +1,267 @@
+@import '~assets/sass/variables';
+
+$_module-rem: $module-rem;
+$_border-width: 1px;
+$_border-style: solid;
+$_fs: 1rem;
+$_ff: $main-ff;
+$_fw: 700;
+$_lh: $_module-rem * 2 / $_fs;
+$_tt: none;
+$_padding: $_module-rem ($_module-rem * 1.5);
+$_shape: $shape;
+$_transition: $animation;
+$_shadow: $shadow;
+$_shadow-hover: $shadow-hover;
+
+$_lg-padding: ($_module-rem * 1.5) ($_module-rem * 2.5);
+$_lg-fs: ($_fs * 1.2);
+$_lg-lh: $_module-rem * 2 / $_lg-fs;
+
+$_sm-padding: ($_module-rem) ($_module-rem / 2);
+$_sm-fs: ($_fs * .8);
+$_sm-lh: $_module-rem / $_sm-fs;
+
+//btn colors
+$_types: (
+	default: (
+	 bg: main-palette(500),
+   color: main-contrast(500),
+   hover-bg: main-palette(700),
+   hover-color: main-contrast(500)
+  ),
+  accent: (
+   bg: accent-palette(500),
+   color: accent-contrast(500),
+   hover-bg: accent-palette(700),
+   hover-color: accent-contrast(700)
+  ),
+  success: (
+    bg: $success-color,
+    color: $success-contrast,
+    hover-bg: darken($success-color, 10%),
+    hover-color: darken($success-contrast, 10%)
+  ),
+  info: (
+    bg: $info-color,
+    color: $info-contrast,
+    hover-bg: darken($info-color, 10%),
+    hover-color: darken($info-contrast, 10%)
+  ),
+  warning: (
+    bg: $warning-color,
+    color: $warning-contrast,
+    hover-bg: darken($warning-color, 10%),
+    hover-color: darken($warning-contrast, 10%)
+  ),
+  error: (
+    bg: $error-color,
+    color: $error-contrast,
+    hover-bg: darken($error-color, 10%),
+    hover-color: darken($error-contrast, 10%)
+  )
+);
+
+@-webkit-keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+:host {
+	align-items: center;
+  border: transparent 0 $_border-style;
+  border-radius: $_shape;
+  box-shadow: $_shadow;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: $_ff;
+  font-size: $_fs;
+  font-weight: $_fw;
+  justify-content: center;
+  line-height: $_lh;
+  outline: none;
+  padding: $_padding;
+	position: relative;
+  text-align: center;
+  text-transform: $_tt;
+  touch-action: manipulation;
+  transition:
+		background .2s $_transition,
+    border .2s $_transition,
+    box-shadow .2s $_transition,
+    color .2s $_transition,
+    opacity .2s $_transition;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  will-change: background, border, box-shadow, color, opacity;
+  -webkit-appearance: none;
+
+  &:hover {
+    border-color: transparent;
+    box-shadow: $_shadow-hover;
+  }
+  .btn-text {
+    margin: 0 ($_module-rem / 2);
+    min-height: #{$_fs * $_lh};
+
+    &:empty {
+      margin: 0;
+    }
+  }
+  .btn-line {
+    border-width: $_border-width;
+    border-style: inherit;
+    border-color: inherit;
+    border-radius: inherit;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+		top: 0;
+		z-index: 2;
+  }
+  .btn-icon {
+    font-size: 1.3em;
+    margin: 0 ($_module-rem / 2);
+  }
+  .btn-loader {
+    align-items: center;
+    border-radius: inherit;
+    display: flex;
+    font-size: 150%;
+    height: 100%;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+    width: 100%;
+
+    .icon {
+      animation: rotation 1s infinite linear;
+    }
+  }
+  &.btn-square {
+    min-width: $module-rem * 4;
+    padding-left: $module-rem / 2;
+    padding-right: $module-rem / 2;
+
+    &.btn-sm {
+      min-width: $module-rem * 3;
+    }
+    &.btn-lg {
+      min-width: $module-rem * 5;
+    }
+  }
+  &.btn-block {
+    display: block;
+    width: 100%;
+  }
+  &.btn-left {
+    justify-content: flex-start;
+    text-align: left;
+  }
+  &.btn-right {
+    justify-content: flex-end;
+    text-align: right;
+  }
+  &.btn-lg {
+    font-size: $_lg-fs;
+    line-height: $_lg-lh;
+    padding: $_lg-padding;
+
+    .btn-text {
+      min-height: #{$_lg-fs * $_lg-lh};
+    }
+  }
+  &.btn-sm {
+    font-size: $_sm-fs;
+    line-height: $_sm-lh;
+    padding: $_sm-padding;
+
+    .btn-text {
+      min-height: #{$_sm-fs * $_sm-lh};
+    }
+  }
+
+  //colors - (default, accent, success, info, warning, error)
+  @each $_type, $_color in $_types {
+    &.btn-#{$_type} {
+      background: map-get($_color, bg);
+			color: map-get($_color, color);
+
+      &:hover {
+        background: map-get($_color, hover-bg);
+        color: map-get($_color, hover-color);
+      }
+      &.btn-outline {
+        border-color: map-get($_color, bg);
+        color: map-get($_color, bg);
+
+        &:hover,
+        .active & {
+          background: map-get($_color, bg);
+          color: map-get($_color, color);
+        }
+      }
+    }
+  }
+  &.btn-outline {
+    background: transparent;
+  }
+  &.btn-disabled {
+    cursor: not-allowed;
+    opacity: .6;
+    pointer-events: none;
+  }
+  &.btn-load {
+    cursor: not-allowed;
+    pointer-events: none;
+
+    .btn-text,
+    .btn-icon {
+      visibility: hidden;
+    }
+    .btn-loader {
+      visibility: visible;
+    }
+  }
+  &.btn-icon-animation {
+    .btn-icon {
+      align-items: center;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      transition: transform .2s $_transition;
+      transform: scale(0);
+      will-change: transform;
+    }
+    .btn-text {
+      transition: opacity .2s $_transition;
+      will-change: opacity;
+    }
+    &:hover,
+    .active & {
+      .btn-icon {
+        transform: scale(1);
+      }
+      .btn-text {
+        opacity: 0;
+      }
+    }
+  }
+}
+::ng-deep {
+  a.w-btn {
+    text-decoration: none;
+  }
+}

@@ -1,0 +1,78 @@
+
+<div class="row">
+    <div class="col-12 col-md-4">
+        <button tc-button *ngIf="data.invoice.remaining > 0" (click)="addNewPayment()" [tcBgColor]="'#3f51b5'">Add Payment</button>
+        <br>
+        <br>
+    </div>
+    <div class="col-12 col-md-8">
+      <tc-card [tcBgColor]="'#1f2022'" [tcColor]="'#fff'">
+        <div class="row text-center">
+          <div class="col-4">
+            <div>Total</div>
+            <strong [tcFontSize]="20" [tcColor]="'#00c896'">{{data.invoice.grand_total | currency:'Rs'}}</strong>
+          </div>
+  
+          <div class="col-4">
+            <div>Paid</div>
+            <strong [tcFontSize]="20" [tcColor]="'#00c896'">{{data.invoice.pay | currency:'Rs'}}</strong>
+          </div>
+
+          <div class="col-4" *ngIf="data.invoice.remaining > 0">
+              <div>Remaining</div>
+              <strong [tcFontSize]="20" [tcColor]="'#ed5564'">{{data.invoice.remaining | currency:'Rs'}}</strong>
+           </div>
+           <div class="col-4" *ngIf="data.invoice.remaining <= 0">
+              <div>Balance</div>
+              <strong [tcFontSize]="20" [tcColor]="'#00c896'">{{data.invoice.remaining | currency:'Rs'  | minusSignToParens}}</strong>
+           </div>
+        </div>
+      </tc-card>
+    </div>
+  </div>
+  <div class="table-responsive">
+<table class="table table-sm table-bordered">
+    <thead class="thead-dark">
+        <tr>
+          <th>S.no</th>
+          <th>Amount</th>
+          <th>Note</th>
+          <th>Paid By</th>
+          <th>Received By</th>
+          <th>Status</th>
+          <th>Date</th>
+         <!-- <th>Action</th> -->
+        </tr>
+      </thead>
+    <tbody>
+        <tr *ngFor="let data of paymentsData; let i = index">
+          <td>{{i+1}}</td>
+        <td>{{data.amount}}</td>
+        <td>{{data.note}}</td>
+        <td>{{data.paid_by | titlecase}}</td>
+        <td>{{data.created_by.first_name}} {{data.created_by.last_name}}</td>
+        <td class="text-center"><span [class]="data.payment_type === 'paid' ? 'badge badge-success' : 'badge badge-danger'">{{ data.payment_type  | titlecase }}</span></td>
+        <td>{{ data.created_at | date:'dd MMM y h:mm a' }}</td>
+       <!--  <td class="text-center" >
+
+          <div class="actions">
+            <a
+              href="javascript:void(0)"
+              tc-button
+              (click)="updatePayment(data._id,data.amount,data.note)"
+              [afterIcon]="'icofont-pencil-alt-1'"
+              [square]="true"
+              [tcShape]="500"
+              [size]="'sm'"
+              [view]="'accent'"
+              
+            ></a>
+        </div>
+
+
+        </td>-->
+      </tr>
+     
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,36 @@
+<div id="print-section" style="display:none"> 
+
+        <table>
+            <tr>
+                <td><b>Patients ID:</b></td>
+                <td>{{printData.patient_id.patient_id}}</td>
+                <td class="width"><b>Name:</b></td>
+                <td>{{printData.patient_id.name}}</td>
+            </tr>
+            <tr>
+                <td><b>Age:</b> {{printData.patient_id.age}} {{printData.patient_id.age_type | titlecase}}</td>
+                <td><b>Sex:</b> {{printData.patient_id.gender | titlecase}}</td>
+                <td class="width"><b>Visit Date:</b></td>
+                <td>{{ printData.created_at | date:'dd MMM y h:mm a' }}</td>
+            </tr>
+            <tr class="">   
+                <td class="padding"><b>BP:</b></td>
+                <td class="padding">{{printData.info.bp}} mmHG</td>
+            </tr>
+            <tr>
+                <td><b>Pulse:</b></td>
+                <td>{{printData.info.pulse}}/m</td>
+            </tr>
+            <tr>
+                <td><b>Temp:</b></td>
+                <td>{{printData.info.temp}} &#8457;</td>
+            </tr>
+            <tr>
+                <td><b>Weight:</b></td>
+                <td>{{printData.info.weight}}</td>
+            </tr>
+        </table>
+        
+        </div>
+        
+        

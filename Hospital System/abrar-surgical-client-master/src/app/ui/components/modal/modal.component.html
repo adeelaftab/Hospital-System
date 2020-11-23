@@ -1,0 +1,27 @@
+<div class="modal-overlay" (click)="closeWindow(options.overlayClose)" *ngIf="options.overlay"></div>
+
+<div class="modal-window-wrap">
+  <div class="modal-window" [ngStyle]="{ 'width': options.width, 'height': options.height }">
+    <button class="no-style close-modal" *ngIf="options.closeButton" (click)="closeWindow(true)">
+      <i class="icofont-close-line"></i>
+    </button>
+
+    <div class="modal-header" *ngIf="header">
+      <h2 *ngIf="title" class="title">{{ title }}</h2>
+
+      <ng-template [ngTemplateOutlet]="header" *ngIf="!title"></ng-template>
+    </div>
+
+    <div class="modal-body">
+      <p *ngIf="bodyText">{{ bodyText }}</p>
+
+      <ng-template [ngTemplateOutlet]="body" *ngIf="!bodyText"></ng-template>
+    </div>
+
+    <div class="modal-footer" *ngIf="footer">
+      <p *ngIf="footerText">{{ footerText }}</p>
+
+      <ng-template [ngTemplateOutlet]="footer" *ngIf="!footerText"></ng-template>
+    </div>
+  </div>
+</div>

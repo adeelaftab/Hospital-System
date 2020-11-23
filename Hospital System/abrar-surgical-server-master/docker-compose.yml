@@ -1,0 +1,14 @@
+version: '3'
+services:
+  server:
+    build: .
+    command: nodemon --legacy-watch
+    network_mode: bridge
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    external_links:
+      - mongo
+    

@@ -1,0 +1,12 @@
+<style>
+	  		   .table td, .table th 
+  			   {
+				    padding: .35rem !important;
+				    font-size: 16px !important;
+				}
+				hr
+				{
+					border: 1px solid black !important;
+					margin:2px !important;
+				}
+</style>

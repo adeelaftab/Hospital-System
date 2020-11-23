@@ -1,0 +1,5 @@
+<div class="dropdown-content-wrap" [ngStyle]="{ 'width': width }">
+  <ng-content></ng-content>
+</div>
+
+<div class="dropdown-overlay" (click)="hide()" (keypress)="eventHandler($event.keyCode)"><span class="overlay-bg" *ngIf="overlay"></span></div>

@@ -1,0 +1,136 @@
+<div class="row">
+    <div class="col-md-10">
+    <form [formGroup]="myForm" id="ngForm" (ngSubmit)="id ? updateData(myForm.valid) : saveData(myForm.valid)" novalidate>
+  
+      <div class="row">
+        <div class="col-md-3">
+            <tc-form-group>
+                <tc-form-label>Name <sup [tcColor]="'#e24d4d'">*</sup></tc-form-label>
+                <tc-input [tcShape]="0" [size]="'sm'" formControlName="name"></tc-input>
+                
+            
+              </tc-form-group>
+        </div>
+        <div class="col-md-3">
+            <tc-form-group>
+                <tc-form-label>W/S/D</tc-form-label>
+                <tc-input [tcShape]="0" [size]="'sm'" formControlName="relation"></tc-input>
+            </tc-form-group>
+        </div>
+        <div class="col-md-3">
+            <tc-form-group>
+                <tc-form-label>Age <sup [tcColor]="'#e24d4d'">*</sup></tc-form-label>
+                <div class="row">
+                    <div class="col-sm-6">
+                          <tc-input [tcShape]="0" [size]="'sm'" formControlName="age"></tc-input>
+                    </div>
+                    <div class="col-sm-6 m-l">
+                          <tc-select [tcShape]="0" formControlName="age_type" [size]="'sm'" [options]="ageData"></tc-select>
+                    </div>
+                </div>
+               
+               
+            </tc-form-group>
+        </div>
+        <div class="col-md-3">
+              <tc-form-group>
+                  <tc-form-label>Blood Group <sup [tcColor]="'#e24d4d'">*</sup></tc-form-label>
+                  <tc-select [tcShape]="0" formControlName="blood_group" [size]="'sm'" [options]="bloodGroup"></tc-select>
+                  
+              </tc-form-group>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-4">
+              <tc-form-group>
+                  <tc-form-label>CNIC #</tc-form-label>
+                  <tc-input [tcShape]="0" [size]="'sm'" formControlName="cnic"></tc-input>
+              </tc-form-group>
+          </div>
+          <div class="col-md-4">
+              <tc-form-group>
+                  <tc-form-label>Passport #</tc-form-label>
+                  <tc-input [tcShape]="0" [size]="'sm'" formControlName="passport"></tc-input>
+              </tc-form-group>
+          </div>
+          <div class="col-md-4">
+              
+                    <tc-form-group>
+                            <tc-form-label>Gender <sup [tcColor]="'#e24d4d'">*</sup></tc-form-label>
+                            <tc-select [tcShape]="0" formControlName="gender" [size]="'sm'" [options]="gender"></tc-select>
+                            
+                        </tc-form-group>                  
+            
+          </div>
+      </div>
+        <hr>
+        <br>
+        <div class="row" formGroupName="address">
+            <div class="col-md-4">
+                <tc-form-group>
+                    <tc-form-label>City <sup [tcColor]="'#e24d4d'">*</sup></tc-form-label>
+                    <tc-input [tcShape]="0" [size]="'sm'" formControlName="city"></tc-input>
+                </tc-form-group>
+               
+            </div>
+            <div class="col-md-4">
+                <tc-form-group>
+                    <tc-form-label>Country <sup [tcColor]="'#e24d4d'">*</sup></tc-form-label>
+                    <tc-input [tcShape]="0" [size]="'sm'" formControlName="country"></tc-input>
+                </tc-form-group>
+                <!-- <tc-form-description
+                [tcColor]="'#e24d4d'"
+                *ngIf="myForm.controls.address.touched && myForm.controls.address.invalid">
+               Country is Required
+              </tc-form-description> -->
+                
+            </div>
+            <div class="col-md-4">
+                <tc-form-group>
+                    <tc-form-label>Address</tc-form-label>
+                    <tc-input [tcShape]="0" [size]="'sm'" formControlName="location"></tc-input>
+                </tc-form-group>
+            </div>
+        </div>
+          <hr>
+          <br>
+          <div class="row" formGroupName="contact">
+              <div class="col-md-4">
+                  <tc-form-group>
+                      <tc-form-label>Mobile No <sup [tcColor]="'#e24d4d'">*</sup></tc-form-label>
+                      <tc-input [tcShape]="0" [size]="'sm'" formControlName="mobile_no"></tc-input>
+                  </tc-form-group>
+                  <tc-form-description
+                  [tcColor]="'#e24d4d'"
+                  *ngIf="myForm.controls.contact.touched && myForm.controls.contact.hasError('invalidNumber')">
+                  Mobile Number must be a number value
+                </tc-form-description>
+              </div>
+              <div class="col-md-4">
+                  <tc-form-group>
+                      <tc-form-label>WhatsApp Number</tc-form-label>
+                      <tc-input [tcShape]="0" [size]="'sm'" formControlName="whatsapp_no"></tc-input>
+                  </tc-form-group>
+              </div>
+              <div class="col-md-4">
+                  <tc-form-group>
+                      <tc-form-label>Email</tc-form-label>
+                      <tc-input [tcShape]="0" [size]="'sm'" formControlName="email"></tc-input>
+                  </tc-form-group>
+              </div>
+          </div>
+  
+    </form>
+  
+  
+    <div class="buttons-list mb-3">
+        <button tc-button [view]="'accent'" [disabled]="myForm.invalid" [load]="loadingButton" form="ngForm">Submit</button>
+        
+    </div>
+        
+    </div>
+  
+    <div class="col-md-4">
+  
+    </div>
+  </div>

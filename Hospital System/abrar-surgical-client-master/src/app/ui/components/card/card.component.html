@@ -1,0 +1,10 @@
+<img src="{{ img }}" *ngIf="img" class="card-img">
+
+<div class="card-header" *ngIf="title">
+  <h3 class="card-title">{{ title }}</h3>
+</div>
+
+<div class="card-content" [ngStyle]="{ 'padding': padding }">
+	<ng-content></ng-content>
+</div>
+

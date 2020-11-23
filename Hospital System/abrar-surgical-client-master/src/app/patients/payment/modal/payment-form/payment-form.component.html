@@ -1,0 +1,70 @@
+<div class="modal-header">
+  <h4 class="modal-title"><span>Add New Payment</span></h4>
+    
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="myForm" id="ngForm"  (ngSubmit)="saveData(myForm.valid)" novalidate>
+
+    <div class="col-12 col-md-12">
+        
+            <tc-form-group>
+              <tc-form-label>Amount <sup [tcColor]="'#e24d4d'">*</sup></tc-form-label>
+        
+              <tc-input [tcShape]="0" [size]="'sm'" formControlName="amount"></tc-input>
+        
+              <tc-form-description
+              [tcColor]="'#e24d4d'"
+              *ngIf="myForm.controls.amount.touched && myForm.controls.amount.hasError('required')">
+              Amount is Required
+            </tc-form-description>
+              <tc-form-description
+              [tcColor]="'#e24d4d'"
+              *ngIf="myForm.controls.amount.touched && myForm.controls.amount.hasError('invalidNumber')">
+              Amount must be a number value
+            </tc-form-description>
+
+            <tc-form-description
+            [tcColor]="'#e24d4d'"
+            *ngIf="myForm.controls.amount.touched && myForm.controls.amount.hasError('max')">
+            Amount must be less than Or equal to remaining amount : {{max_value}}
+          </tc-form-description>
+
+            </tc-form-group>
+
+
+            <tc-form-group>
+                <tc-form-label>Note</tc-form-label>
+                <tc-textarea  [tcShape]="0" formControlName="note"></tc-textarea>
+               
+              </tc-form-group>
+        
+      </div>
+    </form>
+  
+</div>
+<div class="modal-footer">
+    
+    <button
+    tc-button
+    [type]="'button'"
+    [view]="'warning'"
+    (click)="resetForm()"
+  >
+    Reset
+  </button>
+
+  <button
+    tc-button
+    [view]="'accent'"
+    [disabled]="myForm.invalid"
+    [load]="loadingButton"
+    form="ngForm"
+  >
+    Submit
+  </button>
+
+    <button tc-button [view]="'error'" (click)="activeModal.dismiss('Close clicked')">Close</button>
+</div>

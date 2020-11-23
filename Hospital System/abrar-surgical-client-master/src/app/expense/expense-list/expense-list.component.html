@@ -1,0 +1,52 @@
+<button type="button" (click)="addNewData()" class="btn btn-lg btn-outline-primary text-right">Add New Expense</button>
+<br>
+<br>
+
+<div class="col-md-12">
+    <div class="table-responsive">
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" style="width:100%" class="table table-sm table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Expense ID</th>
+        <th>Amount</th>
+        <th>Note</th>
+        <th>Category</th>
+        <th>Added By</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="expenseListData?.length != 0">
+        <tr *ngFor="let exp of expenseListData">
+            <td>{{ exp.expense_id }}</td>
+            <td>{{ exp.amount }}</td>
+            <td>{{ exp.note }}</td>
+            <td>{{ exp.category.category_name }}</td>
+            <td>{{exp.created_by.first_name}} {{exp.created_by.last_name}}</td>
+            <td class="text-center"><span [class]="exp.status === 'active' ? 'badge badge-success' : 'badge badge-danger'">{{ exp.status  | titlecase }}</span></td>
+            <td class="text-center">
+                <div class="actions">
+                    <a
+                      href="javascript:void(0)"
+                      tc-button
+                      (click)="updateData(exp._id,exp.amount,exp.category._id,exp.note,exp.status)"
+                      [afterIcon]="'icofont-pencil-alt-1'"
+                      [square]="true"
+                      [tcShape]="500"
+                      [size]="'sm'"
+                      [view]="'accent'"
+                      
+                    ></a>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+    <tbody *ngIf="expenseListData?.length == 0">
+      <tr>
+        <td colspan="5" class="no-data-available">No data!</td>
+      </tr>
+    <tbody>
+  </table>
+  </div>
+
+</div>

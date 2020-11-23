@@ -1,0 +1,26 @@
+[
+	{
+    "number": 1,
+		"person": "Ronald Hilbert",
+		"position": "developer",
+		"email": "robhilbert@company.com"
+	},
+	{
+    "number": 2,
+		"person": "Angela Simpson",
+		"position": "digital artist",
+		"email": "hilbert@company.com"
+	},
+	{
+    "number": 3,
+		"person": "Richard Franson",
+		"position": "art director",
+		"email": "richard@company.com"
+	},
+	{
+    "number": 4,
+		"person": "David Robertson",
+		"position": "developer",
+		"email": "david@company.com"
+	}
+]

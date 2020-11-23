@@ -1,0 +1,135 @@
+<app-indoor-bill *ngIf="indoorData" [printChargesData]= 'indoorData' [ChargesData]= 'ChargesData'></app-indoor-bill>
+
+    <ngb-tabset (tabChange)="reload($event)">
+      <ngb-tab id="tab-1" title="Information">
+          <ng-template ngbTabContent>
+            <br>
+            <div class="row col-md-12">
+                <div class="col-md-6" *ngIf="indoorData">
+                
+                    <table class="table table-sm table-striped table-bordered">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Indoor ID</th>
+                                <td>{{indoorData.invoice_id}}</td>
+                              </tr>
+                              <tr>
+                                  <th scope="row">Patient Name</th>
+                                  <td>{{indoorData.patient_id.name}}</td>
+                              </tr>
+                          <tr>
+                            <th scope="row">Patient ID</th>
+                            <td>{{indoorData.patient_id.patient_id}}</td>
+                          </tr>
+
+                          <tr>
+                              <th scope="row">Blood Group</th>
+                              <td>{{indoorData.patient_id.blood_group}}</td>
+                            </tr>
+                         
+                          <tr>
+                              <th scope="row">Age</th>
+                              <td>{{indoorData.patient_id.age}} {{indoorData.patient_id.age_type | titlecase}}</td>
+                          </tr>
+                          <tr>
+                              <th scope="row">Mobile Number</th>
+                              <td>{{indoorData.patient_id.contact.mobile_no}}</td>
+                          </tr>
+                          <tr>
+                              <th scope="row">Print</th>
+                              <td>
+                                <button printSectionId="print-section-bill" style="margin-left:08px" styleSheetFile="assets/css/boot2.min.css,assets/css/indoor-bill.css" tc-button [view]="'warning'" ngxPrint  [size]="'sm'">Print Invoice</button>                              
+                                  
+                                </td>
+                          </tr>
+                            
+                        </tbody>
+                      </table>
+              
+                      <br>
+          
+                      
+                  
+            </div>
+            <div class="col-md-6">
+
+                <table class="table table-sm table-striped table-bordered"  *ngIf="indoorData">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Room</th>
+                            <td>{{indoorData.room.name}}</td>
+                          </tr>
+                          <tr>
+                              <th scope="row">Consultant</th>
+                              <td>{{indoorData.consultant_id.name}}</td>
+                          </tr>
+                     
+                      <tr>
+                          <th scope="row">Admission Date</th>
+                          <td>{{ indoorData.created_at | date:'dd MMM y h:mm a' }}</td>
+                      </tr>
+                      <tr *ngIf="indoorData.discharge_status==false">
+                          <th  scope="row">Next Charges Apply On</th>
+                          <td><div class="countdown" simpleCountdown       [styles]="
+                            '
+                            font-size: 12px;
+                            text-align:center;
+                            color: #FFF;
+                            background-color: #3F51B5;
+                            padding: 18px 13px;
+                            font-weight: bold;
+                            min-width:40px;
+                            margin:0 1px;
+                          '
+                          " [dateTo]="toTimestamp(indoorData.next_charges_apply)"></div></td>
+                      </tr>
+                      <tr>
+                          <th scope="row">Discharge</th>
+                          <td *ngIf="indoorData.discharge_status==true">{{ indoorData.discharge_on | date:'dd MMM y h:mm a' }}</td>
+
+                          <td *ngIf="indoorData.discharge_status==false">
+                              <button type=button class="btn btn-sm btn-primary"  (click)="discharge(indoorData.patient_id.name)">Discharge It</button>
+                       
+                              
+                            </td>
+                      </tr>
+                        
+                    </tbody>
+                  </table>
+
+
+                <form [formGroup]="infoForm" id="ngForm"  (ngSubmit)="updateInfo(infoForm.valid)" novalidate>
+
+                    <div class="row" formGroupName="info">
+                      
+                      <div class="col-md-12">
+                          <tc-form-group>
+                              <tc-textarea [tcShape]="0" [resize]="true" formControlName="description" [placeholder]="'Enter Description here'"></tc-textarea>
+                            </tc-form-group>
+      
+                     
+                      
+                      <br>
+                      <button tc-button [size]="'sm'" [load]="loadingButton" form="ngForm" [tcBgColor]="'#3f51b5'">Update</button>
+                    </div>
+                    </div>
+      
+                 </form>
+            </div>
+            
+          </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tab-2" title="Charges">
+            <ng-template ngbTabContent>
+              <br>
+                   <app-indoor-charges [_id]='id' [admission_date]='indoorData.created_at' (sendMessage)="showMessage($event)" [chargesCategoryData] ='chargesCategoryData'></app-indoor-charges>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab id="tab-3" title="Payments">
+              <ng-template ngbTabContent>
+                <br>
+                <app-invoice-payment-list (sendMessage)="showMessage($event)" [payment_type]="'indoor'"  [data]='indoorData'></app-invoice-payment-list>
+              </ng-template>
+            </ngb-tab>
+      </ngb-tabset>

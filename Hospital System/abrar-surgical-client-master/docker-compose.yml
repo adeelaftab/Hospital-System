@@ -1,0 +1,13 @@
+version: '3'
+services:
+  client:
+    build: .
+    network_mode: bridge
+    ports:
+      - "4200:4200"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    external_links:
+      - mongo
+    

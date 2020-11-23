@@ -1,0 +1,106 @@
+<div id="print-section-bill" style="display:none">
+<div class="container-fluid">
+    <div class="text-center" style="font-size: 200%"><b>ABRAR SURGERY</b></div>
+    <div class="text-center" style="font-size: 150%"><b>291-B(1),Peshawar Road Rawalpindi</b></div>
+    <div class="text-center" style="font-size: 150%"><b>Phone:5565813, 5584421</b></div>
+    <div class="text-center" style="font-size: 150%"><u><b>Indoor Patient Bill</b></u></div>
+    <hr>
+    <hr>
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-8">
+            <span style="font-size: 120%"><b>Indoor Reciept ID </b></span>
+            <span style="font-size: 120%">{{printChargesData.invoice_id}}</span>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+            <span style="font-size: 120%"><b>Indoor Patient ID </b></span>
+            <span style="font-size: 120%">{{printChargesData.patient_id.patient_id}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-8">
+            <span style="font-size: 120%"><b>Patient Name </b></span>
+            <span style="font-size: 120%">{{printChargesData.patient_id.name}}</span>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+            <span style="font-size: 120%"><b>Age/Sex </b></span>
+            <span style="font-size: 120%">{{printChargesData.patient_id.age}} {{printChargesData.patient_id.age_type | titlecase}} / {{printChargesData.patient_id.gender | titlecase}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-8">
+            <span style="font-size: 120%"><b>Date of Admission </b></span>
+            <span style="font-size: 120%">{{ printChargesData.created_at | date:'dd/MM/y' }}</span>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-4" *ngIf="printChargesData.discharge_status==false">
+            <span style="font-size: 120%"><b>Date Discharge </b></span>
+            <span style="font-size: 120%">-</span>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-4" *ngIf="printChargesData.discharge_status==true">
+            <span style="font-size: 120%"><b>Date Discharge </b></span>
+            <span style="font-size: 120%">{{ printChargesData.discharge_on | date:'dd/MM/y' }}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-8">
+            <span style="font-size: 120%"><b>Room/Bed/NICU </b></span>
+            <span style="font-size: 120%">{{printChargesData.room.name}}</span>
+        </div>
+       <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+            <span style="font-size: 120%"><b>Entered by</b></span>
+            <span style="font-size: 120%">Gul Khan</span>
+        </div> -->
+    </div>
+
+    <br>
+    
+     <div class="card" style="border: 2px solid black">
+        <div class="card-body" style="padding: 3px">
+            <div class="col-lg-8">
+                <span><b>Charges</b></span>
+            </div>
+           <!-- <div class="col-lg-4">
+                <span><b>Operation</b></span>
+                <span>LSC Section</span>
+            </div> -->
+        </div>	
+    </div>
+      <table class="table table-borderless mt-3" style="font-size: 80%">
+
+        <tr *ngFor="let data of printCharge; let i = index">
+                            
+            <td><b>{{pad(i+1)}}</b> {{data.name}} </td>
+            <td>{{data.day}}</td>
+            <td class="border">Rs {{data.total | number}}</td>
+        </tr>
+
+        
+          <tr>
+              <td><b> Total Bill Amount:Rs. {{inWords(printChargesData.invoice.charges) | titlecase}} only</b></td>
+              <td></td>
+              <td style="border: 2px solid black">Rs {{printChargesData.invoice.charges | number}}</td>
+          </tr>
+          <tr>
+              <td><b></b>Advanced Recieved</td>
+              <td></td>
+              <td class="border">Rs {{printChargesData.invoice.advanced | number}}</td>
+          </tr>
+          <tr>
+              <td><b></b>Discount</td>
+              <td></td>
+              <td class="border">Rs {{printChargesData.invoice.discount | number}}</td>
+          </tr>
+          <tr>
+              <td><b></b>Amount Recieved</td>
+              <td></td>
+              <td class="border">Rs {{
+                  
+                printChargesData.invoice.advanced - printChargesData.invoice.pay | number | minusSignToParens }}</td>
+          </tr>
+          <tr>
+              <td><b>Total Amount Received: Rs. {{inWords(printChargesData.invoice.pay) | titlecase}} only</b></td>
+              <td></td>
+              <td style="border: 2px solid black">Rs {{printChargesData.invoice.pay | number}}</td>
+          </tr>
+      </table>
+  </div>
+  </div>

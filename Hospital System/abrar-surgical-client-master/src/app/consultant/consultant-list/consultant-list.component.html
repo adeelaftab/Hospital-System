@@ -1,0 +1,89 @@
+<button type="button" (click)="addNewData()" class="btn btn-lg btn-outline-primary text-right">Add New</button>
+<br>
+<br>
+
+<div class="table-responsive">
+
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>S.no</th>
+      <th>Name</th>
+      <th>Specialization</th>
+     <th>Fees</th>
+      <th>Hospital Share</th>
+      <th>Type</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of consultantData; index as i">
+      <td>{{ i+1 }}</td>
+      <td>{{ data.name }}</td>
+      <td>
+          <div *ngFor="let spec of data.specialization">
+            {{spec.name}}
+          </div>
+        </td>
+         <td>
+            <div *ngIf="data.charges.first_time">
+                First Time : {{data.charges.first_time}}
+              </div>
+            <div *ngIf="data.charges.normal">
+              Normal : {{data.charges.normal}}
+            </div>
+            
+              <div *ngIf="data.charges.seven_days">
+                  7-Days : {{data.charges.seven_days}}
+                </div>
+          </td>
+          <td>
+              <div *ngIf="data.charges.first_time_hospital_share">
+                  First Time : {{data.charges.first_time_hospital_share}}
+                </div>
+              <div *ngIf="data.charges.normal_hospital_share">
+                Normal : {{data.charges.normal_hospital_share}}
+              </div>
+              
+                <div *ngIf="data.charges.seven_days_hospital_share">
+                    7-Days : {{data.charges.seven_days_hospital_share}}
+                  </div>
+            </td>
+        
+      <td>
+          <div *ngFor="let type of data.consultant_type">
+            {{type | titlecase}}
+          </div>
+        </td>
+        <td class="text-center"><span [class]="data.status === 'active' ? 'badge badge-success' : 'badge badge-danger'">{{ data.status  | titlecase }}</span></td>
+      <td>
+          <div class="buttons-list">
+              <a
+                href="javascript:void(0)"
+                tc-button
+                (click)="viewDetail(data._id)"
+                [afterIcon]="'icofont-eye'" 
+                [tcBgColor]="'#3f51b5'"
+                [square]="true"
+                [tcShape]="500"
+                [size]="'sm'"
+              ></a>
+              <a
+              href="javascript:void(0)"
+              tc-button
+              (click)="updateData(data._id)"
+              [afterIcon]="'icofont-pencil-alt-1'" 
+              [view]="'info'"
+              [square]="true"
+              [tcShape]="500"
+              [size]="'sm'"
+            ></a>
+          </div>
+      
+        </td>
+    </tr>
+  </tbody>
+  </table>
+</div>
+

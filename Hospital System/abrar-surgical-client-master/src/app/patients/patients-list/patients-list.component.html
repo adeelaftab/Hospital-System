@@ -1,0 +1,56 @@
+<div class="col-md-12">
+    <div class="table-responsive">
+<table datatable [dtOptions]="dtOptions" style="width:100%" class="table table-sm table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Patient ID</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Mobile Number</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="persons?.length != 0">
+        <tr *ngFor="let person of persons">
+            <td>{{ person.name }}</td>
+            <td>{{ person.patient_id }}</td>
+            <td>{{ person.age }} {{person.age_type | titlecase}} </td>
+            <td>{{ person.gender  | titlecase }}</td>
+            <td>{{ person.contact.mobile_no }}</td>
+            <td class="text-center"><span [class]="person.status === 'active' ? 'badge badge-success' : 'badge badge-danger'">{{ person.status  | titlecase }}</span></td>
+            <td class="text-center"><div class="actions">
+                <a
+                  href="javascript:void(0)"
+                  tc-button
+                  (click)="generateInovoice(person._id)"
+                  [afterIcon]="'icofont-external-link'"
+                  [square]="true"
+                  [tcShape]="500"
+                  [size]="'sm'"
+                ></a>	&nbsp;
+                <a
+                href="javascript:void(0)"
+                tc-button
+                (click)="updatePatient(person._id)"
+                [afterIcon]="'icofont-pencil-alt-1'"
+                [square]="true"
+                [tcShape]="500"
+                [size]="'sm'"
+                [view]="'accent'"
+                
+              ></a>
+            </div>
+            </td>
+        </tr>
+    </tbody>
+    <tbody *ngIf="persons?.length == 0">
+      <tr>
+        <td colspan="6" class="no-data-available">No data!</td>
+      </tr>
+    <tbody>
+  </table>
+  </div>
+
+</div>

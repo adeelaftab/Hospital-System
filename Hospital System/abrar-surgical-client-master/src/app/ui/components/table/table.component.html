@@ -1,0 +1,76 @@
+<tc-form-group *ngIf="search">
+	<tc-input
+		[placeholder]="'Seach in table'"
+		[tcFilterTable]="config.filtering"
+		(tableChanged)="onChangeTable(config)"
+		[suffixIcon]="'icofont-search-document'"
+	></tc-input>
+</tc-form-group>
+
+<div class="table-wrap" *ngIf="rows.length">
+	<table class="table-box">
+    <thead>
+      <tr>
+        <th
+          *ngFor="let c of columnList;"
+          [column]="c.config"
+          [align]="headerAlign"
+          [tcTableSort]="c.config.sort"
+          (sortChanged)="onChangeTable(config, c)"
+          [tcBgColor]="headerBgColor"
+        >
+          <div class="col-wrapper" [ngClass]="{ 'sorting-col': c.config.enableSorting }">
+            <ng-container *ngIf="!c.headerTemplate">
+              <span *ngIf="c.config.enableSorting" class="sorting" [tcColor]="headerColor">
+                <button class="no-style icofont-simple-up up" [ngClass]="{ 'active': c.config.sort === 'asc' }"></button>
+                <button class="no-style icofont-simple-down down" [ngClass]="{ 'active': c.config.sort === 'desc' }"></button>
+              </span>
+
+              <ng-container *ngIf="!c.enableFiltering">
+                <span class="title" [tcColor]="headerColor">{{ c.config.title }}</span>
+              </ng-container>
+
+              <ng-container *ngIf="c.enableFiltering">
+                <div class="search-box">
+                  <tc-input
+                    [size]="'sm'"
+                    (click)="$event.stopPropagation();"
+                    [tcFilterTable]="c.config.filtering"
+                    [suffixIcon]="'icofont-search-alt-2'"
+                    (tableChanged)="onChangeTable(config, c)"
+                    [placeholder]="c.config.title">
+                  </tc-input>
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+
+          <ng-template *ngIf="c.headerTemplate" [ngTemplateOutlet]="c.headerTemplate"></ng-template>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let row of rows" [align]="rowAlign">
+        <td *ngFor="let col of columnList" [ngStyle]="{ 'background': contentBgColor, 'color': contentColor }">
+          <ng-container *ngIf="!col.tdTemplate">{{ row[col.config.name] }}</ng-container>
+
+          <ng-template
+            *ngIf="col.tdTemplate"
+            [ngTemplateOutlet]="col.tdTemplate"
+            [ngTemplateOutletContext]="{ $implicit: row[col.config.name], row: row }"
+          ></ng-template>
+        </td>
+      </tr>
+    </tbody>
+	</table>
+
+  <div class="no-data" *ngIf="!rows">No table's data</div>
+</div>
+
+<tc-pagination
+  *ngIf="pagination && pagesCount > 1"
+  [pagesNumber]="pagesCount"
+  [pageNum]="page"
+  (goToPage)="goToPage($event)"
+></tc-pagination>

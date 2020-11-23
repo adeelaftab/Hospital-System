@@ -1,0 +1,12 @@
+<i 
+	*ngFor="let icon of icons"
+	class="icon {{ (view !== 'number') ? iconClass : 'number' }}"
+	[ngClass]="{ 'active': value >= icon }"
+	(click)="setValue(icon, disabled)"
+	[ngStyle]="getIconStyles(value >= icon)"
+  (mouseover)="addHover(icon, value)"
+  (mouseleave)="removeHover(value)"
+>
+  {{ (view === 'number') ? icon : null }}
+</i>
+

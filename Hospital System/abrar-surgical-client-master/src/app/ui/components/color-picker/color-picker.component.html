@@ -1,0 +1,31 @@
+<div *ngIf="!opened" class="color-field" [ngClass]="{ 'gradient': gradient }">
+	<div class="circle" (click)="openPicker($event)">
+		<div class="bg">
+			<div class="white"></div>
+			<div class="transparent"></div>
+			<div class="bg-color" [ngStyle]="{ 'background-color': savedColor }"></div>
+		</div>
+		<div class="cursor" [ngClass]="getCursorClass()"></div>
+	</div>
+
+	<div
+		*ngIf="gradient"
+		class="circle"
+		(click)="openPicker($event,true)"
+	>
+		<div class="bg">
+			<div class="white"></div>
+			<div class="transparent"></div>
+			<div class="bg-color" [ngStyle]="{ 'background-color': secondColor }"></div>
+		</div>
+		<div class="cursor" [ngClass]="getCursorClass(true)"></div>
+	</div>
+
+	<div *ngIf="gradient" class="selected-color-value">{{ savedColor }}</div>
+
+	<div *ngIf="!gradient" class="selected-color-value">{{ savedColor }}</div>
+</div>
+
+<tc-picker #picker></tc-picker>
+
+<tc-picker #secondPicker [ngStyle]="gradientStyles()"></tc-picker>

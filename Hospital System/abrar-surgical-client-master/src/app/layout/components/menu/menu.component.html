@@ -1,0 +1,105 @@
+<nav class="main-menu-wrap">
+  <ul class="menu-ul">
+    <li
+      class="menu-item"
+      *ngFor="let item of menuItems"
+      [ngClass]="{ 'active': (item.active || isActive([orientation, item.routing])), 'has-sub': item.sub }"
+    >
+      <div *ngIf="item.groupTitle; then group else default"></div>
+
+      <!-- Group title -->
+      <ng-template #group>
+        <span class="group-title">{{ item.title }}</span>
+      </ng-template>
+      <!-- end Group title -->
+
+      <!-- Default item -->
+      <ng-template #default>
+        <div *ngIf="!item.sub; then simple else sub"></div>
+
+        <!-- Single item -->
+        <ng-template #simple>
+          <a
+            href="#"
+            class="item-link"
+            (click)="toggle($event, item, this); closeAll(); closeSidebar()"
+          >
+            <tc-icon
+              class="link-icon"
+              [iconClass]="item.icon.class"
+              [tcFontSize]="'1.3em'"
+              [tcColor]="item.icon.color"
+              [tcBgColor]="item.icon.bg"
+              *ngIf="item.icon && item.icon.class"
+            ></tc-icon>
+
+            <span class="link-text">{{ item.title }}</span>
+
+            <tc-badge
+              class="link-badge"
+              [size]="'sm'"
+              [tcColor]="item.badge.color"
+              [tcBgColor]="item.badge.bg"
+              *ngIf="item.badge && item.badge.text"
+            >
+              {{ item.badge.text }}
+            </tc-badge>
+          </a>
+        </ng-template>
+        <!-- end Single item -->
+
+        <!-- Item with sub -->
+        <ng-template #sub>
+          <a href="#" class="item-link" (click)="toggle($event, item, this)">
+            <tc-icon
+              class="link-icon"
+              [iconClass]="item.icon.class"
+              [tcFontSize]="'1.3em'"
+              [tcColor]="item.icon.color"
+              [tcBgColor]="item.icon.bg"
+              *ngIf="item.icon && item.icon.class"
+            ></tc-icon>
+
+            <span class="link-text">{{ item.title }}</span>
+
+            <tc-badge
+              class="link-badge"
+              [size]="'sm'"
+              [tcColor]="item.badge.color"
+              [tcBgColor]="item.badge.bg"
+              *ngIf="item.badge && item.badge.text"
+            >
+              {{ item.badge.text }}
+            </tc-badge>
+
+            <span class="link-caret {{ caret }}" *ngIf="item.sub"></span>
+          </a>
+
+          <!-- Menu sub -->
+          <ul class="sub" *ngIf="!item.groupTitle && item.sub" [@subMenu]="subState(item, isActive([orientation, item.routing]))">
+            <li
+              class="menu-item"
+              *ngFor="let itemSub of item.sub"
+              [ngClass]="{ 'active': (itemSub.active || isActive([orientation, itemSub.routing])) }"
+            >
+              <a
+                href="#"
+                class="item-link"
+                (click)="
+                  $event.preventDefault();
+                  changeRoute(itemSub.routing, !isActive([orientation, itemSub.routing]), itemSub.layout ? itemSub.layout : orientation);
+                  closeAll();
+                  closeSidebar()
+                "
+              >
+                <span class="link-text">{{ itemSub.title }}</span>
+              </a>
+            </li>
+          </ul>
+        </ng-template>
+        <!-- end Item with sub -->
+      </ng-template>
+      <!-- end Default item -->
+    </li>
+  </ul>
+</nav>

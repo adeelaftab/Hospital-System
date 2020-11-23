@@ -1,0 +1,132 @@
+<div class="row col-md-12">
+    <div class="col-md-8">
+
+        <table  class="table table-sm table-bordered" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+            <thead class="thead-dark">
+              <tr>
+                <th>Category</th>
+                <th>Name</th>
+                <th>Charges</th>
+                <th>Discount</th>
+                <th>Total</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of outdoorCharges; let i = index">
+                    <td>{{data.category}}</td>
+                    
+                    <td *ngIf="data.status=='inactive'"><del>{{data.name}}</del></td>
+                    <td *ngIf="data.status=='active'">{{data.name}}</td>
+                    <td *ngIf="data.status=='inactive'"><del>{{data.charge}}</del></td>
+                    <td *ngIf="data.status=='active'">{{data.charge}}</td>
+                    <td width="15%" *ngIf="data.status=='inactive'"><del>{{data.discount}}</del></td>
+                    <td width="15%" *ngIf="data.status=='active'">{{data.discount}}</td>
+                    <td *ngIf="data.status=='inactive'"><del>{{data.total}}</del></td>
+                    <td *ngIf="data.status=='active'">{{data.total}}</td>
+                <td>
+                    <div class="buttons-list" *ngIf="data.edit">
+                      
+                        <!-- <a
+                        href="javascript:void(0)"
+                        tc-button
+                        
+                        [afterIcon]="'icofont-pencil-alt-1'" 
+                       
+                        
+                        [tcShape]="500"
+                        [size]="'sm'"
+                      ></a> -->
+                      
+                      <a
+                          href="javascript:void(0)"
+                          tc-button
+                          (click)="removeCharges(data,i)"
+                          [afterIcon]="'icofont-bin'" 
+                          [view]="'error'"
+                         
+                          [tcShape]="500"
+                          [size]="'sm'"
+                        ></a>
+                      </div>
+                      <div class="buttons-list" *ngIf="data.edit==false">
+
+                        <a
+                        href="javascript:void(0)"
+                        tc-button
+                        
+                        [afterIcon]="'icofont-pencil-alt-1'" 
+                        (click)="updateCharges(data,i)"
+                        
+                        [tcShape]="500"
+                        [size]="'sm'"
+                      ></a>
+  
+                      </div>
+                </td>
+               
+                </tr>
+            </tbody>
+          </table>
+
+          <br>
+
+          <div class="row">
+
+              <div class="col-md-6">
+                  <button tc-button *ngIf="submitButton" [load]="loadingButton" (click)="submitData()" [size]="'lg'">Save Charges</button> 
+              </div>
+              <div class="col-md-6">
+                  <table class="table table-sm table-striped table-bordered">
+                      <tbody>
+                          <tr>
+                              <th scope="row">Total Charges</th>
+                              <td>{{totalCharges}}</td>
+                          </tr>
+                          <tr>
+                              <th scope="row">Discount</th>
+                              <td>{{totalDiscount}}</td>
+                          </tr>
+                          <tr>
+                              <th scope="row">Grand Total</th>
+                              <td>{{totalCharges - totalDiscount}}</td>
+                          </tr>
+                            
+                      </tbody>
+                    </table>
+              </div>
+
+          </div>
+
+
+      </div>
+      <div class="col-md-4">
+
+          <tc-select [tcShape]="0" [size]="'sm'" (ngModelChange)="getChargesList($event)" [(ngModel)]="charges_category"  [options]="chargesCategoryData" [allowClear]="true" [placeholder]="'Select Charges'"></tc-select>
+          <br>
+
+          <tc-form-group>
+                <tc-input [placeholder]="'Search'"  [(ngModel)]="searchString" [tcShape]="0"></tc-input>
+        </tc-form-group>
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+
+          <table class="table table-sm table-bordered table-fixed" *ngIf="chargesListData" >
+              <thead class="thead-dark">
+                <tr>
+                  <th>Name</th>
+                  <th>Charges</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let data of chargesListData | filterr : 'name' : searchString; let i = index " style="cursor: pointer;" (click)="addCharges(data)" >
+                      <td>{{data.name}}</td>
+                      <td>{{data.charges}}</td>
+                  </tr>
+              </tbody>
+            </table>
+
+        </div>
+
+
+        </div>
+</div>

@@ -1,0 +1,320 @@
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <ngb-datepicker #dp (select)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden">
+    </ngb-datepicker>
+    
+    <ng-template #t let-date let-focused="focused">
+      <span class="custom-day"
+            [class.focused]="focused"
+            [class.range]="isRange(date)"
+            [class.faded]="isHovered(date) || isInside(date)"
+            (mouseenter)="hoveredDate = date"
+            (mouseleave)="hoveredDate = null">
+        {{ date.day }}
+      </span>
+    </ng-template>
+  </div>
+  <div class="col-md-3"></div>
+</div>
+<br>
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+      <button class="btn btn-sm btn-outline-primary" styleSheetFile="assets/css/report.min.css" printSectionId="print-section" ngxPrint>print</button>
+    &nbsp;<button class="btn btn-sm btn-outline-primary" (click)="submit()">Submit</button>
+
+  </div>
+  <div class="col-md-3"></div>
+</div>
+
+
+
+<br>
+<div id="print-section"> 
+<div class="row col-md-12">
+
+<div style="display: none" id="id_41">
+    <div  style="font-size: 200%;text-align: center;"><b>ABRAR SURGERY</b></div>
+		<div class="text-center" style="font-size: 150%;text-align: center;"><b>291-B(1),Peshawar Road Rawalpindi</b></div>
+		<div class="text-center" style="font-size: 150%;text-align: center;"><b>Phone:5565813, 5584421</b></div>
+		<div class="text-center" style="font-size: 150%;text-align: center;"><u><b>Detail Report</b></u></div>
+    <div class="text-center" style="font-size: 150%;text-align: center;"><u><b>{{fromto}}</b></u></div>
+
+  </div>
+
+
+
+
+
+    <table class="table table-sm" id="items">
+        <thead class="thead-dark">
+          <tr>
+            <th class="text-center" scope="col">Outdoor Bills</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          </tbody>
+    </table>
+
+    <table class="table table-sm">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Time</th>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Consultant</th>
+            <th scope="col">Charges</th>
+            <th scope="col">Discount</th>
+            <th scope="col">Total</th>
+            <th scope="col">Paid</th>
+            <th scope="col">Remaining</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="outdoor?.length != 0">
+            <tr *ngFor="let data of outdoor;let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{ data.created_at | date:'dd/MM/y h:mm a' }}</td>
+            <td>{{data.invoice_id}}</td>
+            <td>{{data.patient_id.name}}</td>
+            <td>{{data.charges[0].consultant_id.name}}</td>
+            <td>{{ data.invoice.charges | number }}</td>
+            <td>{{ data.invoice.discount | number }}</td>
+            <td>{{ data.invoice.grand_total | number }}</td>
+            <td>{{ data.invoice.pay | number }}</td>
+            <td *ngIf="data.invoice.remaining == 0"></td>
+            <td *ngIf="data.invoice.remaining > 0">{{ data.invoice.remaining | number}}</td>
+            <td *ngIf="data.invoice.remaining < 0">{{ data.invoice.remaining | number | minus}}/Extra</td>
+          </tr>
+
+          <tr>
+              <td colspan="5" class="text-center"><strong>Sum</strong></td>
+              <td>{{outdoor_sum.charges | number}}</td>
+              <td>{{outdoor_sum.discount | number}}</td>
+              <td>{{outdoor_sum.total | number}}</td>
+              <td>{{outdoor_sum.pay| number}}</td>
+              <td>{{outdoor_sum.remaining | number}}</td>
+            </tr>
+         
+        </tbody>
+        
+        <tbody *ngIf="outdoor?.length == 0">
+            <tr>
+              <td colspan="9" class="no-data-available">No data!</td>
+            </tr>
+          <tbody>
+      </table>
+
+      <br>
+      
+      <table class="table table-sm" id="items">
+          <thead class="thead-dark">
+            <tr>
+              <th class="text-center" scope="col">Active Indoor</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            </tbody>
+      </table>
+  
+      <table class="table table-sm">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Admission</th>
+              <th scope="col">Bed</th>
+              <th scope="col">ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Consultant</th>
+              <th scope="col">Charges</th>
+              <th scope="col">Discount</th>
+              <th scope="col">Total</th>
+              <th scope="col">Advanced</th>
+              <th scope="col">Paid</th>
+              <th scope="col">Balance</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="active_indoor?.length != 0">
+              <tr *ngFor="let data of active_indoor;let i = index">
+              <th scope="row">{{i+1}}</th>
+              <td>{{ data.created_at | date:'dd/MM/y h:mm a' }}</td>
+              <td>{{data.room.name}}</td>
+              <td>{{data.invoice_id}}</td>
+              <td>{{data.patient_id.name}}</td>
+              <td>{{data.consultant_id.name}}</td>
+              <td>{{ data.invoice.charges | number }}</td>
+              <td>{{ data.invoice.discount | number }}</td>
+              <td>{{ data.invoice.grand_total | number }}</td>
+              <td>{{ data.invoice.advanced | number }}</td>
+              <td>{{ data.invoice.pay - data.invoice.advanced | number }}</td>
+              <td *ngIf="data.invoice.remaining == 0"></td>
+              <td *ngIf="data.invoice.remaining > 0"> - {{ data.invoice.remaining | number}}</td>
+              <td *ngIf="data.invoice.remaining < 0">{{ data.invoice.remaining | number | minus}}</td>
+            </tr>
+
+            <tr>
+                <td colspan="6" class="text-center"><strong>Sum</strong></td>
+                <td>{{active_indoor_sum.charges | number}}</td>
+                <td>{{active_indoor_sum.discount | number}}</td>
+                <td>{{active_indoor_sum.total | number}}</td>
+                <td>{{active_indoor_sum.advanced | number}}</td>
+                <td>{{active_indoor_sum.pay  - active_indoor_sum.advanced| number}}</td>
+                <td>{{active_indoor_sum.balance | number}}</td>
+              </tr>
+           
+          </tbody>
+         
+          </table>
+
+        <br>
+
+        <table class="table table-sm" id="items">
+            <thead class="thead-dark">
+              <tr>
+                <th class="text-center" scope="col">Indoor Discharge</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              </tbody>
+        </table>
+    
+        <table class="table table-sm">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Admission</th>
+                <th scope="col">Discharge</th>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Consultant</th>
+                <th scope="col">Charges</th>
+                <th scope="col">Discount</th>
+                <th scope="col">Total</th>
+                <th scope="col">Paid</th>
+                <th scope="col">Balance</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="indoor?.length != 0">
+                <tr *ngFor="let data of indoor;let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{ data.created_at | date:'dd/MM/y h:mm a' }}</td>
+                <td>{{ data.discharge_on | date:'dd/MM/y h:mm a' }}</td>
+                <td>{{data.invoice_id}}</td>
+                <td>{{data.patient_id.name}}</td>
+                <td>{{data.consultant_id.name}}</td>
+                <td>{{ data.invoice.charges | number }}</td>
+                <td>{{ data.invoice.discount | number }}</td>
+                <td>{{ data.invoice.grand_total | number }}</td>
+                <td>{{ data.invoice.pay | number }}</td>
+                <td *ngIf="data.invoice.remaining == 0"></td>
+                <td *ngIf="data.invoice.remaining > 0"> - {{ data.invoice.remaining | number}}</td>
+                <td *ngIf="data.invoice.remaining < 0">{{ data.invoice.remaining | number | minus}}</td>
+              </tr>
+
+              <tr>
+                  <td colspan="6" class="text-center"><strong>Sum</strong></td>
+                  <td>{{indoor_sum.charges | number}}</td>
+                  <td>{{indoor_sum.discount | number}}</td>
+                  <td>{{indoor_sum.total | number}}</td>
+                  <td>{{indoor_sum.pay| number}}</td>
+                  <td>{{active_indoor_sum.balance | number}}</td>
+                </tr>
+             
+            </tbody>
+
+          
+          </table>
+
+          <br>
+
+          <table class="table table-sm" id="items" width="100%">
+              <thead class="thead-dark">
+                <tr>
+                  <th class="text-center" scope="col">Outdoor Consultant</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                </tbody>
+          </table>
+      
+          <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Total Patients</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Hospital Share</th>
+                  
+                </tr>
+              </thead>
+              <tbody *ngIf="consultant?.length != 0">
+                  <tr *ngFor="let data of consultant;let i = index">
+                  <th scope="row">{{i+1}}</th>
+                  <td>{{ data.name}}</td>
+                  <td>{{data.count}}</td>
+                  <td>{{data.amount | number}}</td>
+                  <td>{{data.hospital}}</td>
+                  
+            
+                </tr>
+               
+              </tbody>
+            </table>
+
+
+        <table class="table table-sm" id="items">
+            <thead class="thead-dark">
+              <tr>
+                <th class="text-center" scope="col">Expense</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              </tbody>
+        </table>
+    
+        <table class="table table-sm">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Time</th>
+                <th scope="col">ID</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Category</th>
+                <th scope="col">Note</th>
+                <th scope="col">Added By</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="expense?.length != 0">
+                <tr *ngFor="let data of expense;let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{ data.created_at | date:'dd/MM/y h:mm a' }}</td>
+                <td>{{data.expense_id}}</td>
+                <td>{{data.amount | number}}</td>
+                <td>{{data.category.category_name}}</td>
+                <td>{{ data.note}}</td>
+                <td>{{ data.created_by.first_name}}</td>
+          
+              </tr>
+
+              <tr>
+                  <td colspan="3" class="text-center"><strong>Sum</strong></td>
+                  <td colspan="4">{{expense_amount | number}}</td>
+                  
+                </tr>
+             
+            </tbody>
+            
+          </table>
+
+          
+
+</div>
+</div>
+ 

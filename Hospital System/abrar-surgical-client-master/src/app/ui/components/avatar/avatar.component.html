@@ -1,0 +1,5 @@
+<img src="{{ src }}" alt="{{ alt }}" width="{{ size }}" height="{{ size }}" *ngIf="src">
+
+<div class="initials" *ngIf="!src">{{ initials }}</div>
+
+<span class="avatar-loader"><i class="fa fa-spinner fa-pulse"></i></span>

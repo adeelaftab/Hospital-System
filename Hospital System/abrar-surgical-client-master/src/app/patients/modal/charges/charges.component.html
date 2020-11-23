@@ -1,0 +1,82 @@
+<div class="modal-header">
+  <h4 class="modal-title"><span *ngIf="_id">Update</span></h4>
+    
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="myForm" id="ngForm"  (ngSubmit)="updateData(myForm.valid)" novalidate>
+
+    <div class="col-12 col-md-12">
+
+        <tc-form-group>
+            <tc-form-label>Name <sup [tcColor]="'#e24d4d'">*</sup></tc-form-label>
+      
+            <tc-input [tcShape]="0" [size]="'sm'" formControlName="name" [readonly]="true"></tc-input>
+      
+          </tc-form-group>
+        
+        <tc-form-group>
+            <tc-form-label>Charges <sup [tcColor]="'#e24d4d'">*</sup></tc-form-label>
+      
+            <tc-input [tcShape]="0" [size]="'sm'" formControlName="charges" (focusout)="chargesChange()"></tc-input>
+      
+            <tc-form-description
+              [tcColor]="'#e24d4d'"
+              *ngIf="myForm.controls.charges.touched && myForm.controls.charges.hasError('required')">
+              Charges is Required
+            </tc-form-description>
+
+            <tc-form-description
+            [tcColor]="'#e24d4d'"
+            *ngIf="myForm.controls.charges.touched && myForm.controls.charges.hasError('invalidNumber')">
+            Charges must be a number value
+          </tc-form-description>
+          </tc-form-group>
+
+          <tc-form-group>
+              <tc-form-label>Discount <sup [tcColor]="'#e24d4d'">*</sup></tc-form-label>
+        
+              <tc-input [tcShape]="0" [size]="'sm'" formControlName="discount" (focusout)="discountChange()"></tc-input>
+        
+              <tc-form-description
+                [tcColor]="'#e24d4d'"
+                *ngIf="myForm.controls.discount.touched && myForm.controls.discount.hasError('required')">
+                Discount is Required
+              </tc-form-description>
+
+              <tc-form-description
+              [tcColor]="'#e24d4d'"
+              *ngIf="myForm.controls.discount.touched && myForm.controls.discount.hasError('invalidNumber')">
+              Discount must be a number value
+            </tc-form-description>
+            </tc-form-group>
+
+        
+            <tc-form-group>
+              <tc-form-label>Status <sup [tcColor]="'#e24d4d'"></sup></tc-form-label>
+
+              <tc-select [tcShape]="0" [size]="'sm'"  [options]="statusData" formControlName="status"></tc-select>
+               
+            </tc-form-group>
+        
+      
+      </div>
+    </form>
+  
+</div>
+<div class="modal-footer">
+   
+  <button
+    tc-button
+    [view]="'accent'"
+    [disabled]="myForm.invalid"
+    [load]="loadingButton"
+    form="ngForm"
+  >
+    Submit
+  </button>
+
+    <button tc-button [view]="'error'" (click)="activeModal.dismiss('Close clicked')">Close</button>
+</div>

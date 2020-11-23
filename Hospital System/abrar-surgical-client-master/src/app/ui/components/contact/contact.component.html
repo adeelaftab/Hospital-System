@@ -1,0 +1,21 @@
+<div class="img-box" *ngIf="data && data.img">
+  <img src="{{ data.img }}" width="400" height="400" alt="">
+</div>
+
+<div class="info-box">
+  <h4 class="name">{{ data.name }}</h4>
+
+  <p class="role">{{ data.role }}</p>
+
+  <div class="social" *ngIf="data && data.social">
+    <ng-container *ngFor="let item of data.social">
+      <a href="{{ item.link }}" class="link {{ item.icon }}"></a>
+    </ng-container>
+  </div>
+
+  <p class="address">{{ data.address }}</p>
+
+  <div class="button-box" *ngIf="data && data.profileLink">
+    <a href="#" [routerLink]="['../', data.profileLink]" tc-button [view]="'accent'">View profile</a>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<span class="alert-icon" *ngIf="beforeIcon"><i [ngClass]="beforeIcon"></i></span>
+
+<div class="content">
+	<h5 class="title" *ngIf="title">{{ title }}</h5>
+
+	<span class="message"><ng-content></ng-content></span>
+</div>
+
+<button class="no-style close" *ngIf="removable" (click)="removeAlert()"><i class="icofont-close-line"></i></button>
+
+<span class="alert-icon" *ngIf="afterIcon"><i [ngClass]="afterIcon"></i></span>
